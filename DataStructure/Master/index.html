@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <title>算法实践</title>
+
+    <link rel="stylesheet" type="text/css" href="index.css">
+
+    <script>
+        function  importScript(jsName) {
+            const script = document.createElement("script");
+            script.setAttribute("type","text/javascript");
+            script.setAttribute("src",jsName);
+            document.getElementsByTagName("head")[0].appendChild(script);
+        }
+    </script>
+</head>
+<body>
+
+    <ul class="list">
+        <li class="list-item" onselectstart="return false" onclick="importScript('tree/binarytree.js')">排序二叉树</li>
+        <li class="list-item" onselectstart="return false" onclick="importScript('web/diff.js')">diff算法</li>
+        <li class="list-item" onselectstart="return false" onclick="importScript('sort/sort.js')">简单的排序</li>
+    </ul>
+
+</body>
+</html>
