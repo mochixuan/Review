@@ -4,7 +4,6 @@
  * 其他类型的数据只是简单function、null。直接赋值
  */
 
-
 function deepCopy(data) {
     if (!data || typeof data !== 'object') return data; // null也是object
 
@@ -52,9 +51,6 @@ const testData = {
     person: person
 }
 
-
-
-
 const result = deepCopy(testData)
 result.g.b = 10;
-console.log('改前: '+testData.g.b,'改后: '+result.g.b)
+console.log('改前: '+testData,'改后: '+result)
