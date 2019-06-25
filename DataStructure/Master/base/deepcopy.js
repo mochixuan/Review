@@ -4,12 +4,14 @@
  * 其他类型的数据只是简单function、null。直接赋值
  */
 
+// JSON.stringify,JSON.parse
+
 function deepCopy(data) {
     if (!data || typeof data !== 'object') return data; // null也是object
 
     const result = Array.isArray(data) ? [] : {};
     for (let key in data) {
-        if (data.hasOwnProperty(key)) { //去除原型链上的数据
+        if (data.hasOwnProperty(key)) { //原型链上的可枚举属性，去除原型链上的数据
             if (typeof data === 'object') {
                 result[key] = deepCopy(data[key]);
             } else {
@@ -50,7 +52,11 @@ const testData = {
     },
     person: person
 }
+const testData1 = [
+    testData
+]
 
+console.warn(typeof testData1 === 'object', Array.isArray(testData1))
 const result = deepCopy(testData)
 result.g.b = 10;
 console.log('改前: '+testData,'改后: '+result)
