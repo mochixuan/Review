@@ -1,6 +1,7 @@
 # 常见题总结
 
 ## Android
+
 ##### Serializable和Parcelable序列化对象
 ###### 序列化的目的：
 > 在安卓中进程之间的数据传输只支持基本的数据类型，如果要传输复杂的对象，需要在一端进行序列化数据，另一端进行反序列化。序列化只对变量序列化不对对象做序列化。
@@ -21,7 +22,7 @@
 > Service是Android中实现程序后台运行的解决方案，它非常适用于去执行那些不需要和用户交互而且还要求长期运行的任务。Service默认并不会运行在子线程中，它也不运行在一个独立的进程中，它同样执行在UI线程中，因此，不要在Service中执行耗时的操作，除非你在Service中创建了子线程来完成耗时操作
 
 - HandlerThread: 管理线程Handler(mHandlerThread.getLooper())
-- IntentService: 内部维护一个线程。
+- IntentService: 内部维护一个线程。其他方法和Service，不需要手动停止stopSelf，当任务完成后自动停止服务。每个耗时操作都会放到一个任务队列里，执行时从里面取出来。原理是:通过HanderThread+Handler实现线程切换在onCreate生成的，然后在onStartCommand里通过Hander将Intent发生到Handler里的消息队列里，优先级高于Service当处于后台时。
 - 生命周期 onCreate(1次) - onStartCommand(n次、每次startService都会调用一次) - onDestroy
 - onCreate - onBind - onUnbind - onDestroy
 - 关闭服务: stopService() 、stopSelf()、应用管理里关闭服务、内存不足GC清理。
@@ -228,3 +229,29 @@ Observable.create(new ObservableOnSubcribe<T>(){
 - mCachedView: 当滑出屏幕的ItemView会被缓存到CachedView。
 - mViewCacheExtension: 没有实现的，需要自己去实现，当在CachedView+RecyclerPool都没有时才会查找这个。一般都不写。
 - mRecyclerPool: 是一个缓存池，默认缓存大小为5，这个是所以RecyclerView公用的。
+
+##### 进程和线程
+- 进程: 是系统进行资源分配的独立单元，让多个程序同时运行。正在运行程序的抽象。
+- 线程: 程序执行的基本单元。
+- 每个进程都有独立的地址空间。在进程内创建和停止线程，线程间可以进行通信，进程间则需要实现进程通信的方法(AIDL、文件、Messager、ContentProvider、Socket)
+
+##### GC回收机制
+- 1. Java语言的GC功能是自动检测对象是否超过作用域，从而达到自动回收内存和垃圾回收的目的。 Java里对象创建后，会存放到堆里，当垃圾回收开始时会遍历堆，查找不可达的对象，对其进行回收。
+
+##### [Handler、Message](https://blog.csdn.net/lmj623565791/article/details/38476887)
+
+##### [线程池](https://blog.csdn.net/weixin_36244867/article/details/72832632)
+
+- FixedThreadPool: 通过Executors的newFixedThreadPool()方法创建，它是个线程数量固定的线程池，该线程池的线程全部为核心线程，它们没有超时机制且排队任务队列无限制，因为全都是核心线程，所以响应较快，且不用担心线程会被回收.
+- CachedThreadPool: 通过Executors的newCachedThreadPool()方法来创建，它是一个数量无限多的线程池，它所有的线程都是非核心线程，当有新任务来时如果没有空闲的线程则直接创建新的线程不会去排队而直接执行，并且超时时间都是60s，所以此线程池适合执行大量耗时小的任务。由于设置了超时时间为60s，所以当线程空闲一定时间时就会被系统回收，所以理论上该线程池不会有占用系统资源的无用线程.
+- ScheduledThreadPool: 通过Executors的newScheduledThreadPool()方法来创建，ScheduledThreadPool线程池像是上两种的合体，它有数量固定的核心线程，且有数量无限多的非核心线程，但是它的非核心线程超时时间是0s，所以非核心线程一旦空闲立马就会被回收。这类线程池适合用于执行定时任务和固定周期的重复任务。
+- SingleThreadExecutor: 通过Executors的newSingleThreadExecutor()方法来创建，它内部只有一个核心线程，它确保所有任务进来都要排队按顺序执行。它的意义在于，统一所有的外界任务到同一线程中，让调用者可以忽略线程同步问题。
+- shutDown()，关闭线程池，需要执行完已提交的任务；
+- shutDownNow()，关闭线程池，并尝试结束已提交的任务；
+- allowCoreThreadTimeOut(boolen)，允许核心线程闲置超时回收；
+- execute()，提交任务无返回值；
+- submit()，提交任务有返回值；
+
+##### [LeakCanary](https://blog.csdn.net/xiaohanluo/article/details/78196755)
+
+##### Andriud 虚拟机和JVM虚拟机的区别

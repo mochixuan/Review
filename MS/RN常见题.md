@@ -70,7 +70,8 @@ useNativeDriver: true //只能使用非布局的属性，比如transform或者op
 - ketExtractor: 设置唯一识别ID，防止数据错乱和频繁刷新。
 - extraData: 当额外的数据更改时要刷新flatlist，添加在里面,因为Flatlist继承PureComponent。
 - initialNumToRender: 指定一开始渲染的元素数量，最好刚刚够填满一个屏幕，这样保证了用最短的时间给用户呈现可见的内容。注意这第一批次渲染的元素不会在滑动过程中被卸载，这样是为了保证用户执行返回顶部的操作时，不需要重新渲染首批元素。
-- bundle拆包：
+
+##### bundle拆包：
 	- 减少bundle过大的问题。
 	- 实现按需加载，而不是一进入就全部加载bundle,将业务代码和三方库+工具库拆开，也方便维护。
 	- 在进行热更新的时候减少diff/load比较和加载的效率。
@@ -87,7 +88,7 @@ useNativeDriver: true //只能使用非布局的属性，比如transform或者op
 	- 减少不必要的动画,使用LayoutAnimation来替代。
 - FlatList优化。
 - 图片优化。
-- immutable。
+- immutable: 结构共享、持久化数据。
 - 函数式组件：没有生命周期，便于管理，相同输入，相同的组件。
 
 ##### Redux
@@ -222,3 +223,28 @@ void setState(
 - Flutter 原生控件的接入上是仍不如 React Native 稳定。
 - 在 Android 中是 index.android.bunlde 文件，而在 IOS 下是 main.jsbundle。
 - 直接与 CPU / GPU 交互的特性
+
+##### Redux原理
+- createStore(reducers,initialState,enhance: 高阶函数，常用中间件)生成一个全局的对象树(状态)，组件通过connect(mapStateToProps,mapDispatchProps)将对象树的状态和需要改变对象的方法dispactch注入到组件里，connect里的第一个返回一个对象，对象里如果有值将会监控state的对应值的改变，当发生改变时会通知component进行刷新。
+- 为什么组件可以拿到state呢，最外层有个provider。实现是把store放在context中，这样组件可以通过this.context.store获取到上下文。
+- connenct并不会改变它“连接”的组件，而是提供一个经过包裹的connect组件。 conenct接受4个参数，分别是mapStateToProps，mapDispatchToProps，mergeProps，options(使用时注意参数位置顺序).
+
+```
+class Provider extends Component {
+  getChildContext() {
+    return {
+      store: this.props.store
+    };
+  }
+  render() {
+    return this.props.children;
+  }
+}
+
+```
+
+##### RN通信层
+
+##### RN绘制流程
+
+##### Diff算法和虚拟DOM

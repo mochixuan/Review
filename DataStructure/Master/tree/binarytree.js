@@ -188,3 +188,43 @@ const minMaxFixObg = queryMinMaxFix(tempRoot,'G');
 console.warn(`查找固定住${minMaxFixObg.fix.map((item,index) => index+item.value).join(':')}最大值${minMaxFixObg.max}最小值${minMaxFixObg.min}`)
 
 console.log("===== 二叉树查找 开始 =====")
+
+// 非递归
+var kthSmallest = function(root, k) {
+    const tempArr = [];
+    let result;
+    tempArr.push(root);
+    while (tempArr.length > 0) {
+        result = tempArr.pop();
+        if (result.value == k) break;
+        if (result.left != null) tempArr.push(result.left);
+        if (result.right != null) tempArr.push(result.right);
+    }
+    return result;
+};
+
+console.warn('非递归',kthSmallest(tempRoot,'G'))
+
+function preSortBinary(root,result) {
+    let tempArr = [];
+    while (root != null) {
+        result.push(root.value);
+        if (root.right != null) tempArr.push(root.right);
+        if (root.left != null) {
+            root = root.left;
+        } else if (tempArr.length > 0) {
+            root = tempArr.pop();
+        } else {
+            root = null;
+        }
+    }
+    return result;
+}
+
+console.warn('非递归序',preSortBinary(qzhBinaryA,[]))
+
+function inSortBinary(root,result) {
+
+}
+
+console.warn('后递归序',inSortBinary(qzhBinaryA,[]))

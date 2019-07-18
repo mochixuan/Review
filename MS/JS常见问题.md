@@ -57,3 +57,17 @@ Person.call(obj) // {}.构造函数()
 - promise: 正常执行异步操作，可以then、catch接收结果。
 - genrator: redux-saga是使用这个，要自己实现执行器，返回iterator.
 - async+awiat: 可以执行多个异步操作。自带执行器，可以try/catch。语法更加语意。await 后面可以是promise也可以是其他的类型的结果。返回结果是promise。
+
+##### 事件轮训机制 Event-Loop
+> js引擎存在monitoring process进程。
+
+- 同步和异步任务分别进入不同的执行"场所"，同步的进入主线程，异步的进入Event Table并注册函数。
+- 当指定的事情完成时，Event Table会将这个函数移入Event Queue。
+- 主线程内的任务执行完毕为空，会去Event Queue读取对应的函数，进入主线程执行。
+- 上述过程会不断重复，也就是常说的Event Loop(事件循环)
+
+- 任务分配
+	- macro-task(宏任务)：包括整体代码script，setTimeout，setInterval
+	- micro-task(微任务)：Promise，process.nextTick
+	
+- setTimeout和网络请求会交给浏览器的其他线程去完成，当完成的时候会把回调函数写到任务队列。
