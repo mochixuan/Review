@@ -178,7 +178,6 @@ function queryMinMaxFix(node,fix,result) {
 
         if (node.left != null) queryMinMaxFix(node.left,fix,result);
         if (node.right != null) queryMinMaxFix(node.right,fix,result);
-
     }
 
     return result;

@@ -4,7 +4,7 @@ const observe = {
         this.listenerTags[tag] = callback;
     },
     unListener: (tag) => {
-        if (tag != null) delete tag;
+        if (tag != null) delete this.listenerTags[tag];
     },
     emit: (tag,obg) => {
         if (this.listenerTags.includes(tag)) {

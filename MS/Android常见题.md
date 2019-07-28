@@ -254,4 +254,55 @@ Observable.create(new ObservableOnSubcribe<T>(){
 
 ##### [LeakCanary](https://blog.csdn.net/xiaohanluo/article/details/78196755)
 
-##### Andriud 虚拟机和JVM虚拟机的区别
+##### [JVM虚拟机和dalvik/art 虚拟机区别](https://juejin.im/post/59b7fa8cf265da066d3323bb)
+- 执行的文件不同，一个是class，一个是dex。
+- Dalvik是基于寄存器(寄存器是有限存贮容量的高速存贮部件，它们可用来暂存指令、数据和地址,在它们编译的时候，花费的时间更短,65536个可用的寄存器中)的，而JVM是基于栈的(一个线程一个栈，存放方法、对象的地址、常量)。
+- Dalvik适合内存和处理器速度有限的系统。
+- Java运行的环境和Java的容器。
+- JVM需要的资源和系统性能的消耗远远大于Dalivk虚拟机.
+
+##### JVM
+- 栈(stack)：是简单的数据结构，但在计算机中使用广泛。栈最显著的特征是：LIFO(Last In, First Out, 后进先出)。比如我们往箱子里面放衣服，先放入的在最下方，只有拿出后来放入的才能拿到下方的衣服。栈中只存放基本类型和对象的引用(不是对象)。
+- 堆(heap)：堆内存用于存放由new创建的对象和数组。在堆中分配的内存，由java虚拟机自动垃圾回收器来管理。JVM只有一个堆区(heap)被所有线程共享，堆中不存放基本类型和对象引用，只存放对象本身。
+- 方法区(method): 又叫静态区，跟堆一样，被所有的线程共享。方法区包含所有的class和static变量(1.7方法区、1.8常量池)。
+
+##### Dalvik VM(7.0回归) 与 ART(4.4 混合、5.0-6.0) 的不同
+- DVM使用JIT来将字节码转换成机器码，效率低。
+- ART采用了AOT预编译技术，执行速度更快。
+- ART会占用更多的应用安装时间和存储空间。
+
+
+##### Dalvik
+> 主要负责完成对象生命周期管理、堆栈管理、线程管理、安全和异常管理，以及垃圾回收等
+
+##### [垃圾回收机制](https://juejin.im/post/5ce50acdf265da1bb0039583#heading-20)
+- 标记压缩
+- 复制
+- 标记回收
+- 分代
+
+##### 自定义View
+> View绘制从上而下，Activity->PhoneWindow->DecorView->ViewGround->View
+
+- 绘制流程
+	- 1. 测量: measure根据父布局的尺寸以及自己想要的尺寸得到最终自己的尺寸.
+		- setMeasuredDimension(width,height)
+		- MeasureSpec: 高两位表示模式、低30位表示大小 
+		- Mode: LayoutParams(当子View的LayoutParams的布局格式是wrap_content，可以看到子View的大小是父View的剩余尺寸，和设置成match_parent时，子View的大小没有区别。为了显示区别，一般在自定义View时，需要重写onMeasure方法，处理wrap_content时的情况，进行特别指定。)
+			- UNSPECIFIED: 不对View进行任何限制，要多大给多大，一般用于系统内部.
+			- EXACTLY: match_parent、确定大小。
+			- AT_MOST: View的大小不能大于父容器的大小.wrap_content.
+	- 2. 布局: ayout用于确定子View的位置.
+	- 3. 绘制: draw负责绘制自己.
+	- Mode
+- 刷新方法: 
+	- invalidate
+	- postInvalidate
+	- View执行requestLayout方法，会向上递归到顶级父View中，再执行这个顶级父View的requestLayout，所以其他View的onMeasure，onLayout也可能会被调用。
+	
+	
+##### Android 自定义View及注意事项
+
+##### Android GC回收机制
+
+##### Android 堆栈，小程序

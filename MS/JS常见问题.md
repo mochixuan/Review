@@ -71,3 +71,10 @@ Person.call(obj) // {}.构造函数()
 	- micro-task(微任务)：Promise，process.nextTick
 	
 - setTimeout和网络请求会交给浏览器的其他线程去完成，当完成的时候会把回调函数写到任务队列。
+
+##### 让同步函数同步执行，异步函数异步执行
+> (async () => f())();
+
+##### event-loop在看
+
+##### 深拷贝

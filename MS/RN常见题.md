@@ -24,6 +24,15 @@
 - getSnapshotBeforeUpdate(prevProps, prevState) 在render之后调用,而执行的时候DOM还没有更新。这时候可以返回一个参数给componentDidUpdate第三个参数传入.
 - componentDidCatch(error,info) 不影响生命周期。如果render里出现异常，可以抓起组件异常
 
+##### Fiber
+> 改变了之前react的组件渲染机制，新的架构使原来同步渲染的组件现在可以异步化，可中途中断渲染，执行更高优先级的任务。释放浏览器主线程.
+
+- 增量渲染（把渲染任务拆分成块，匀到多帧).
+- 更新时能够暂停，终止，复用渲染任务.
+- 给不同类型的更新赋予优先级.
+- 并发方面新的基础能力.
+
+
 ##### 动画
 - Animated
 	- createAnimatedComponent
@@ -58,7 +67,7 @@ useNativeDriver: true //只能使用非布局的属性，比如transform或者op
 - LayoutAnimation
 	- Android要设置UIManager.setLayoutAnimationEnabledExperimental
 
-##### PureComponent:
+##### [PureComponent](https://segmentfault.com/a/1190000014979065):
 > 将会对state和props进行浅比较，基本的数据类型直接比较数值是否相等，对象、数组、函数则比较对象的引用。
 
 ##### FLatList 优化
@@ -243,8 +252,18 @@ class Provider extends Component {
 
 ```
 
-##### RN通信层
+##### RN通信层和RN绘制流程
 
-##### RN绘制流程
+##### [contructor(props)](https://www.cnblogs.com/faith3/p/9219446.html)
 
-##### Diff算法和虚拟DOM
+##### 高阶组件
+
+##### 基本组件
+
+#### TextView
+
+##### Immutable
+
+##### 项目难点
+
+##### 写过什么好的插件没有

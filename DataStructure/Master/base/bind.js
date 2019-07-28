@@ -1,9 +1,8 @@
-
-
 Function.prototype.bind1 = function bind(thisArg) {
     if (typeof this !== 'function') return new TypeError(thisArg+"not function")
     // arguments 是个伪数组对象，没有slice
     let oldArgs = Array.prototype.slice.call(arguments,1);
+    //let [tempThis,...temp2] = [...arguments];
     let self = this;
     let bound = function (args) {
         let newArgs = Array.prototype.slice.call(arguments)
@@ -21,7 +20,7 @@ function test(a,b) {
     console.log('test',this)
 }
 
-let bindFC = test.bind1(obj)
+let bindFC = test.bind1(obj,[1,2,3])
 bindFC(1,2)
 const instance = new bindFC(1,2)
 
@@ -42,7 +41,6 @@ Function.prototype.bind2 = function (thisArg) {
         } else {
             return self.apply(thisArg,allArgs);
         }
-
     }
     return bound;
 }
