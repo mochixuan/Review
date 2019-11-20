@@ -24,8 +24,7 @@ function shallowEqual(objA, objB) {
     //下面这个就是，如果objA和objB其中有个不是对象或者有一个是null, 那就认为不相等。
     //不是对象，或者是null.我们可以根据上面的排除来猜想是哪些情况:
     //有个不是对象类型或者有个是null,那么我们就直接返回，认为他不同。其主要目的是为了确保两个都是对象，并且不是null。
-    if (typeof objA !== 'object' || objA === null ||
-        typeof objB !== 'object' || objB === null) {
+    if (typeof objA !== 'object' || objA === null || typeof objB !== 'object' || objB === null) {
         return false
     }
 
@@ -45,4 +44,14 @@ function shallowEqual(objA, objB) {
     }
 
     return true;
+}
+
+let a = {
+
+}
+
+a.a = a;
+
+function deepEqual(objA,objB) {
+
 }

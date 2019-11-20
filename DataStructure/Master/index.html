@@ -15,9 +15,31 @@
             document.getElementsByTagName("head")[0].appendChild(script);
         }
     </script>
+    <style>
+        .div2 {
+            width: 96%;
+            padding: 2%;
+            box-sizing: border-box;
+        }
+        .place {
+            text-align:justify;
+            /*text-justify:distribute-all-lines;!*ie6-8*!*/
+            /*text-align-last:center;!* ie9*!*/
+            /*-moz-text-align-last:center;!*ff*!*/
+            /*-webkit-text-align-last:center;!*chrome 20+*!*/
+        }
+        /*@media screen and (-webkit-min-device-pixel-ratio:0){!* chrome*!*/
+            /*.place:after{*/
+                /*content:".";*/
+                /*display: inline-block;*/
+                /*width:100%;*/
+                /*overflow:hidden;*/
+                /*height:0;*/
+            /*}*/
+        /*}*/
+    </style>
 </head>
 <body>
-
     <ul class="list">
         <li class="list-item" onselectstart="return false" onclick="importScript('tree/binarytree.js')">排序二叉树</li>
         <li class="list-item" onselectstart="return false" onclick="importScript('web/diff.js')">diff算法</li>
@@ -27,7 +49,8 @@
         <li class="list-item" onselectstart="return false" onclick="importScript('es/esfc.js')">ES常用方法</li>
         <li class="list-item" onselectstart="return false" onclick="importScript('base/bind.js')">Bind方法</li>
         <li class="list-item" onselectstart="return false" onclick="importScript('base/debounce.js')">防抖节流</li>
+        <li class="list-item" onselectstart="return false" onclick="importScript('base/promise.js')">Promise实现</li>
+        <li class="list-item" onselectstart="return false" onclick="importScript('web/inherit.js')">继承的基本实现</li>
     </ul>
-
 </body>
 </html>

@@ -8,7 +8,7 @@ console.log("===== 排序二叉树 开始=====")
 console.log("排序二叉树(二叉查找树：查找的时间复杂度为树的高度)：没个树节点的左孩子一定该节点，右孩子一定大于该节点")
 
 function sortInsertNode(node,newNode) {
-    if (node.value < newNode.value ) {
+    if (node.value < newNode.value) {
         if (node.right == null) {
             node.right = newNode;
         } else {
@@ -84,7 +84,7 @@ const tempPreOrder = []
 preOrderTraversal(qzhBinaryA,tempPreOrder);
 console.log('前序排序结果',tempPreOrder)
 
-//中序排序
+// 中序排序
 function inOrderTraversal(node,tempOrderTraversal) {
     if (node != null) {
         if (node.left != null) {
@@ -170,20 +170,20 @@ function queryMinMaxFix(node,fix,result) {
     if (node != null) {
         if (result.min == null) result.min = node.value;
         if (result.max == null) result.max = node.value;
-        if (result.fix == null) result.fix = []
+        if (result.fix == null) result.fix = [];
 
         if (node.value < result.min) result.min = node.value;
         if (node.value > result.max) result.max = node.value;
         if (node.value == fix) result.fix.push(node);
 
-        if (node.left != null) queryMinMaxFix(node.left,fix,result);
-        if (node.right != null) queryMinMaxFix(node.right,fix,result);
+        if (node.left != null) queryMinMaxFix(node.left, fix, result);
+        if (node.right != null) queryMinMaxFix(node.right, fix, result);
     }
 
     return result;
 }
 
-const minMaxFixObg = queryMinMaxFix(tempRoot,'G');
+const minMaxFixObg = queryMinMaxFix(tempRoot, 'G');
 console.warn(`查找固定住${minMaxFixObg.fix.map((item,index) => index+item.value).join(':')}最大值${minMaxFixObg.max}最小值${minMaxFixObg.min}`)
 
 console.log("===== 二叉树查找 开始 =====")
@@ -202,7 +202,7 @@ var kthSmallest = function(root, k) {
     return result;
 };
 
-console.warn('非递归',kthSmallest(tempRoot,'G'))
+console.warn('非递归',kthSmallest(tempRoot, 'G'))
 
 function preSortBinary(root,result) {
     let tempArr = [];
@@ -223,7 +223,23 @@ function preSortBinary(root,result) {
 console.warn('非递归序',preSortBinary(qzhBinaryA,[]))
 
 function inSortBinary(root,result) {
-
+    let stack = [];
+    let tempRoot = root;
+    while (stack.length > 0 || tempRoot != null) {
+        while (tempRoot) {
+            stack.push(tempRoot);
+            tempRoot = tempRoot.left;
+        }
+        tempRoot = stack.pop();
+        result.push(tempRoot.value);
+        tempRoot = tempRoot.right;
+    }
 }
 
 console.warn('后递归序',inSortBinary(qzhBinaryA,[]))
+
+// 链表倒叙
+
+
+// 如何判断链表有环
+// 使用HashSet、Set每次判断一下，如果Node已存在则说明有环，不存在则无环。

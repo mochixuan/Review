@@ -46,3 +46,15 @@ let testInterval = setInterval(()=>{
         clearInterval(testInterval)
     }
 },100)
+
+
+function testTable(target) {
+    target.isEnable = true;
+}
+
+///@testTable
+class TestTableClass {
+
+}
+
+console.log('decorator',TestTableClass.isEnable)

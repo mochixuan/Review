@@ -56,7 +56,7 @@ console.log('select sort: ',selectSort(generateTestData()))
 function insertSort(items) {
     for (let i = 1 ; i < items.length ; i++) {
         let temp = items[i];
-        for (let j = i - 1 ; j >= 0  && temp < items[j]; j--) {
+        for (let j = i - 1 ; j >= 0 && temp < items[j]; j--) {
             items[j+1] = items[j];
         }
         items[j] = temp;

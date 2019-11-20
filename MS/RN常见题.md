@@ -24,7 +24,7 @@
 - getSnapshotBeforeUpdate(prevProps, prevState) 在render之后调用,而执行的时候DOM还没有更新。这时候可以返回一个参数给componentDidUpdate第三个参数传入.
 - componentDidCatch(error,info) 不影响生命周期。如果render里出现异常，可以抓起组件异常
 
-##### Fiber
+##### [Fiber](https://juejin.im/post/5a2276d5518825619a027f57)
 > 改变了之前react的组件渲染机制，新的架构使原来同步渲染的组件现在可以异步化，可中途中断渲染，执行更高优先级的任务。释放浏览器主线程.
 
 - 增量渲染（把渲染任务拆分成块，匀到多帧).
@@ -71,12 +71,14 @@ useNativeDriver: true //只能使用非布局的属性，比如transform或者op
 > 将会对state和props进行浅比较，基本的数据类型直接比较数值是否相等，对象、数组、函数则比较对象的引用。
 
 ##### FLatList 优化
->- 继承virtualizedList的属性。
->- 当某行滑出渲染区域之外后，其内部状态将不会保留。请确保你在行组件以外的地方保留了数据。
->- 为了优化内存占用同时保持滑动的流畅，列表内容会在屏幕外异步绘制。这意味着如果用户滑动的速度超过渲染的速度，则会先看到空白的内容。这是为了优化不得不作出的妥协，你可以根据自己的需求调整相应的参数，而我们也在设法持续改进。
+>- 修改maxToRenderPerBatch={20}可以解决白屏: 一次绘制的最大数目。
+
+- 继承virtualizedList的属性。
+- 当某行滑出渲染区域之外后，其内部状态将不会保留。请确保你在行组件以外的地方保留了数据。
+- 为了优化内存占用同时保持滑动的流畅，列表内容会在屏幕外异步绘制。这意味着如果用户滑动的速度超过渲染的速度，则会先看到空白的内容。这是为了优化不得不作出的妥协，你可以根据自己的需求调整相应的参数，而我们也在设法持续改进。
 
 - 设置getItemLayout = (length: ,offset: ,index) ,减少测量，节约性能。
-- ketExtractor: 设置唯一识别ID，防止数据错乱和频繁刷新。
+- keyExtractor: 设置唯一识别ID，防止数据错乱和频繁刷新。
 - extraData: 当额外的数据更改时要刷新flatlist，添加在里面,因为Flatlist继承PureComponent。
 - initialNumToRender: 指定一开始渲染的元素数量，最好刚刚够填满一个屏幕，这样保证了用最短的时间给用户呈现可见的内容。注意这第一批次渲染的元素不会在滑动过程中被卸载，这样是为了保证用户执行返回顶部的操作时，不需要重新渲染首批元素。
 
@@ -103,13 +105,32 @@ useNativeDriver: true //只能使用非布局的属性，比如transform或者op
 ##### Redux
 >- 全局的状态共享，全局的状态管理。reducers,store,
 >- 三大原则: 单一的数据源(全局只有唯一的一个store)、state只能读唯一能改变state的只有action、用纯函数来控制修改保证可控。
-
 - createStore(allReducers,initialState,middleware)
 	- store API: subscribe(监听状态改变)、dispatch、getState(获取状态树)。
 - reducer: combineReducers 
 - mapStateToProps、MapDIspatchToProps。
 
+##### [Redux原理](https://www.jb51.net/article/123418.htm)
+- createStore(reducers,initialState,enhance: 高阶函数，常用中间件)生成一个全局的对象树(状态)，组件通过connect(mapStateToProps,mapDispatchProps)将对象树的状态和需要改变对象的方法dispactch注入到组件里，connect里的第一个返回一个对象，对象里如果有值将会监控state的对应值的改变，当发生改变时会通知component进行刷新。
+- 为什么组件可以拿到state呢，最外层有个provider。实现是把store放在context中，这样组件可以通过this.context.store获取到上下文。
+- connenct并不会改变它“连接”的组件，而是提供一个经过包裹的connect组件。 conenct接受4个参数，分别是mapStateToProps，mapDispatchToProps，mergeProps，options(使用时注意参数位置顺序).
+
+```
+class Provider extends Component {
+  getChildContext() {
+    return {
+      store: this.props.store
+    };
+  }
+  render() {
+    return this.props.children;
+  }
+}
+
+```
+
 ##### redux-sage
+- 实现原理
 - genearator *+yield
 - all({...}) all([]) // 全部运行完成
 - call(fu,obj) //阻塞: fun 即可以是一个 普通 函数，也可以是一个 Generator 函数。
@@ -141,26 +162,6 @@ useNativeDriver: true //只能使用非布局的属性，比如transform或者op
 - flexWrap: wrap,nowrap
 
 ##### redux-devtools、react-addons-perf
-
-##### immutable
->- 持久化数据结构
->- 结构共享(字典树)节约性能、共享相同的部分，大大提高性能。
->- 惰性操作: 用的时候再调。
->- 开销比较大,toJS很好性能。
-
-##### 原生组件
-- RN绘制是ReactRootView绘制在Activity上调用setContentView(mRootView)。
-- extends ReactPackage: 
-	- List<NativeModule> createNativeModules(ReactApplicationContext)
-	- List<ViewManager> createViewManagers(ReactApplicationContext)
-	- NativeModule extends ReactContextBaseJavaModule @ReactMethod
-	- ViewManager extends SimpleViewManager<T> @ReactProp
-- callback 是异步的，不会立刻被执行。
-- promise async+await
-- NativeEventEmitter和原生进行通信。
-- extends ReactActivity: getMainComponentName放回名字
-- Android Application实现ReactNativeHost
-- ReactActivityDelegate 核心处理。
 
 ##### React-Native 拆包
 - 拆包工具: Facebook的metro、携程的moles-packer、google的diff-match-patch
@@ -196,9 +197,9 @@ void setState(
 ##### 高阶组件
 > 高阶组件（HOC）是 React 中用于复用组件逻辑的一种高级技巧，高阶组件是参数为组件，返回值为新组件的函数。redux.
 
-##### React Hook
+##### [React Hook](https://juejin.im/post/5d6383d0f265da03b638b919)
 - useState: 
-- useEffects: componentDidMount、componentDidUpdate 和 componentWillUnmount 的组合体。放回清理函数可选，在卸载时调用。
+- useEffects:(异步执行) componentDidMount、componentDidUpdate 的组合体。放回清理函数可选，在卸载时调用。有两个参数，第一个参数可以返回一个函数，第二个参数是一个数组，但数组里的值发生改变时，第一个函数的返回函数回被调用，当为空时，每次都会调用，当为[]是则componentWillUnmount才会调用。
 - useContext
 - useReducer
 
@@ -213,6 +214,8 @@ void setState(
 - mandatory: 强制更新。
 
 ##### 虚拟DOM,Diff。
+>虚拟DOM是在render里面调用的。[过程](https://mp.weixin.qq.com/s?__biz=MzIzNzA0NzE5Mg==&mid=2247488043&amp;idx=1&amp;sn=33769353115fb505e2573337131d39f0&source=41#wechat_redirect)，调用了render不一定绘制。有时候props和state没有改变也会调用render。
+
 > 虚拟DOM: 使用JS对象去构造一个类DOM结构的对象，在React中使用React Element对象去构造一个虚拟DOM，React中元素属性或者状态发生该改变。shouldComponentUpdata如果返回true,则会将改组件把该组件的状态生成一个React元素树，将该元素树和以前的进行对比，得出最新更新单元。最后就像布丁更新。
 - 虚拟DOM的优点: 
 	- 1. 用一种更简单的方式去绘制界面，开发者不需要知道怎么刷新的DOM,只需要更改组件状态就可以了。
@@ -221,6 +224,106 @@ void setState(
 
 ##### 为什么每个文件都要引用React
 > 每个文件都是一个单独模块，如果没有引入React,将JSX转换为js要调用React.createElement。
+
+##### contructor(props)
+- [contructor 1](https://www.cnblogs.com/faith3/p/9219446.html)
+- [contructor 2](https://www.jianshu.com/p/8f6dd832e57a)
+
+#### Text、阴影
+- 居中问题
+	- lineHeight // iOS
+	- textAlignVertical // Android
+- 底部对齐
+	- Text里嵌套Text可以实现，再微调
+
+##### [interface、type区别](https://blog.csdn.net/qq_37653449/article/details/85072598)
+- type可以生命别名、联合类型 type a = string; type b = Person|Car;
+- interface: 能够声明合并、可以继承
+- 当两者皆可的时候，要优先使用 interface。所以在 tslint 改规则之前，就优先使用 interface 吧。
+
+##### 基本组件
+
+##### [immutable](https://github.com/camsong/blog/issues/3)
+>- 认真看清图: [怎么实现结构共享](https://segmentfault.com/a/1190000016404944)。
+>- 简而言之，Immutable数据就是一旦创建，就不能更改的数据。每当对Immutable对象进行修改的时候，就会返回一个新的Immutable对象，以此来保证数据的不可变。没有被引用的对象会被垃圾回收。
+>- 持久化数据结构
+>- 结构共享(字典树)节约性能、共享相同的部分，大大提高性能。
+>- 惰性操作: 用的时候再调。
+>- 开销比较大,toJS很好性能。
+>- 结构共享的核心思路是以空间换时间。树形结构实现数据共享：二叉树log2n,如果分支越多查询会越快，但占用的空间是比较大的2层32*32.
+>- Javascript里对象可以拥有的key的最大数量一般不会超过2^32个
+>- Immutable.js 在具体实现时肯定不会傻乎乎的占用这么大空间，它对树的高度和宽度都做了“压缩”.同时通过 Vector trie 和 Hash maps trie 压缩空间结构，使其深度最小，性能最优
+>- Object.freeze可以实现属性不可变。
+>- immutable对象直接可以转JSON.stringify(),不需要显式手动调用toJS()转原生。
+
+##### 项目难点
+
+##### [高阶组件](https://juejin.im/post/59b36b416fb9a00a636a207e)
+- 代码复用：这是高阶组件最基本的功能。组件是React中最小单元，两个相似度很高的组件通过将组件重复部分抽取出来，再通过高阶组件扩展，增删改props，可达到组件可复用的目的；
+- 条件渲染：控制组件的渲染逻辑，常见case：鉴权；
+- 生命周期捕获/劫持：借助父组件子组件生命周期规则捕获子组件的生命周期，常见case：打点。
+- 对组件进行二次封装。
+
+- 1. 不要修改原始组件 
+- 2. props保持一致: 高阶组件在为子组件添加特性的同时，要保持子组件的原有的props不受影响。传入的组件和返回的组件在props上尽量保持一致。
+- 属性代理（Props Proxy）：高阶组件操控传递给 WrappedComponent 的 props，
+- 反向继承（Inheritance Inversion）：高阶组件继承（extends）WrappedComponent。
+- https://www.jianshu.com/p/0aae7d4d9bc1。
+- 推崇组合，不推荐继承. 
+
+##### 写过什么好的插件没有
+
+##### 和解：[reconciliation](https://www.reactjscn.com/docs/reconciliation.html)，diff算法得出最小修改
+
+##### Redux中间健
+中间件是先调用数组后面的中间件进行处理，类似于递归性。
+applyMiddleware(...func)
+compose(...func)
+
+```
+
+const store = createStore(reducers, initialState, compose([...applyMiddleware([中间件])]))
+
+const log = ({getState,dispacth}) => (next) => (action) => {
+	return next(action);
+}
+
+// applyMiddleware 使用柯里化获取三层参数: 可以生成新的函数进行传输
+// compose 柯里化
+dispatch = compose(...chain)(store.dispatch);
+
+const last = middles[middles.length - 1];
+const rest = middles.slice(0, -1);
+
+第一个参数 ({getState, dispacth})
+先进行middles.map((middle) => middle({getState,dispacth}));
+第二个参数 next是一个函数嵌套式:
+是倒叙执行的reduceRight先执行最好一个函数参数store.dispacth,每一次执行都会得到一个函数，函数的结果就是下一个函数的参数。只有next()才会向下执行。
+第三个参数： (action)
+compose后会返回一个dispacth，一层层中间件嵌套而成的函数。 
+
+```
+
+##### Redux-Sage
+Sagas属于一个错误管理模式，也同时用于控制复杂事务的执行和回滚等。
+当特定action被dispatch时,saga就可以被唤醒。
+
+##### [WebSocket、即时通讯](https://www.zhihu.com/question/20215561)
+- 特点:
+	- 建立在 TCP 协议之上，服务器端的实现比较容易。
+	- 握手阶段采用 HTTP 协议 
+	- 数据格式比较轻量，性能开销小，通信高效, 不需重复连接和断开
+	- 可以发送文本，也可以发送二进制数据
+	- 没有同源限制，客户端可以与任意服务器通信
+	- 协议标识符是ws（如果加密，则为wss），服务器网址就是 URL。
+	- 相比于Http来说，它响应及时，消耗很小流量，不需要频繁的连接和请求头数据的平凡传输。
+
+- 请求头多: 
+	- Upgrade: websocket
+	- Connection: Upgrade 
+	- Sec-WebSocket-Key: 验证用的
+	- Sec-WebSocket-Protocol: 是一个用户定义的字符串，用来区分同 URL 下，不同的服务所需要的协议
+	- Sec-WebSocket-Version: websocket 协议版本版本号
 
 ##### React-Native通信、React-Native对比Flutter
 - React-Native和Flutter实现原理不同，RN是通过JSCore解析Bundle，最后通过原生组件堆叠出来的。Flutter中组件是通过自己实现了一套，Flutter实现Surface和Canvas，通过Skia进行绘制。
@@ -233,37 +336,20 @@ void setState(
 - 在 Android 中是 index.android.bunlde 文件，而在 IOS 下是 main.jsbundle。
 - 直接与 CPU / GPU 交互的特性
 
-##### Redux原理
-- createStore(reducers,initialState,enhance: 高阶函数，常用中间件)生成一个全局的对象树(状态)，组件通过connect(mapStateToProps,mapDispatchProps)将对象树的状态和需要改变对象的方法dispactch注入到组件里，connect里的第一个返回一个对象，对象里如果有值将会监控state的对应值的改变，当发生改变时会通知component进行刷新。
-- 为什么组件可以拿到state呢，最外层有个provider。实现是把store放在context中，这样组件可以通过this.context.store获取到上下文。
-- connenct并不会改变它“连接”的组件，而是提供一个经过包裹的connect组件。 conenct接受4个参数，分别是mapStateToProps，mapDispatchToProps，mergeProps，options(使用时注意参数位置顺序).
-
-```
-class Provider extends Component {
-  getChildContext() {
-    return {
-      store: this.props.store
-    };
-  }
-  render() {
-    return this.props.children;
-  }
-}
-
-```
+##### 加载。
 
 ##### RN通信层和RN绘制流程
 
-##### [contructor(props)](https://www.cnblogs.com/faith3/p/9219446.html)
-
-##### 高阶组件
-
-##### 基本组件
-
-#### TextView
-
-##### Immutable
-
-##### 项目难点
-
-##### 写过什么好的插件没有
+##### 原生组件
+- RN绘制是ReactRootView绘制在Activity上调用setContentView(mRootView)。
+- extends ReactPackage: 
+	- List<NativeModule> createNativeModules(ReactApplicationContext)
+	- List<ViewManager> createViewManagers(ReactApplicationContext)
+	- NativeModule extends ReactContextBaseJavaModule @ReactMethod
+	- ViewManager extends SimpleViewManager<T> @ReactProp
+- callback 是异步的，不会立刻被执行。
+- promise async+await
+- NativeEventEmitter和原生进行通信。
+- extends ReactActivity: getMainComponentName放回名字
+- Android Application实现ReactNativeHost
+- ReactActivityDelegate 核心处理。

@@ -13,39 +13,12 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="deepcopy.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/base/deepcopy.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="247">
-              <caret line="13" column="31" selection-start-line="13" selection-start-column="17" selection-end-line="13" selection-end-column="31" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="base.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/leetcode/base.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="190">
-              <caret line="10" column="13" lean-forward="true" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="binarytree.js" pinned="false" current-in-tab="false">
+    <leaf>
+      <file leaf-file-name="binarytree.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tree/binarytree.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="19">
-              <caret line="179" column="70" selection-start-line="179" selection-start-column="70" selection-end-line="179" selection-end-column="70" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="shallowEqual.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/web/shallowEqual.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="23" selection-start-column="23" selection-end-column="54" />
+            <state relative-caret-position="106">
+              <caret line="217" column="9" lean-forward="true" selection-start-line="217" selection-start-column="9" selection-end-line="217" selection-end-column="9" />
             </state>
           </provider>
         </entry>
@@ -65,6 +38,7 @@
     <findStrings>
       <find>mediumOrderTraversal</find>
       <find>tempPostOrder</find>
+      <find>arguments</find>
     </findStrings>
     <replaceStrings>
       <replace>inOrderTraversal</replace>
@@ -79,18 +53,23 @@
         <option value="$PROJECT_DIR$/react/.babelrc" />
         <option value="$PROJECT_DIR$/react/index.html" />
         <option value="$PROJECT_DIR$/react/index.js" />
-        <option value="$PROJECT_DIR$/web/diff.js" />
         <option value="$PROJECT_DIR$/leetcode/base.js" />
         <option value="$PROJECT_DIR$/promise/promise.js" />
         <option value="$PROJECT_DIR$/vdom/vdeom.js" />
-        <option value="$PROJECT_DIR$/index.html" />
-        <option value="$PROJECT_DIR$/base/debounce.js" />
-        <option value="$PROJECT_DIR$/web/shallowEqual.js" />
-        <option value="$PROJECT_DIR$/es/esfc.js" />
-        <option value="$PROJECT_DIR$/base/bind.js" />
-        <option value="$PROJECT_DIR$/base/deepcopy.js" />
-        <option value="$PROJECT_DIR$/sort/sort.js" />
         <option value="$PROJECT_DIR$/subsribe/subscribe.js" />
+        <option value="$PROJECT_DIR$/es/esfc.js" />
+        <option value="$PROJECT_DIR$/web/shallowEqual.js" />
+        <option value="$PROJECT_DIR$/web/mydiff.js" />
+        <option value="$PROJECT_DIR$/web/diff.js" />
+        <option value="$PROJECT_DIR$/web/inhert.js" />
+        <option value="$PROJECT_DIR$/web/inherit.js" />
+        <option value="$PROJECT_DIR$/sort/sort.js" />
+        <option value="$PROJECT_DIR$/base/debounce.js" />
+        <option value="$PROJECT_DIR$/base/deepcopy.js" />
+        <option value="$PROJECT_DIR$/base/promise.js" />
+        <option value="$PROJECT_DIR$/index.html" />
+        <option value="$PROJECT_DIR$/temp/review.js" />
+        <option value="$PROJECT_DIR$/base/bind.js" />
         <option value="$PROJECT_DIR$/tree/binarytree.js" />
       </list>
     </option>
@@ -105,13 +84,12 @@
     <handled-path value="$PROJECT_DIR$/react/node_modules" />
   </component>
   <component name="ProjectFrameBounds" fullScreen="true">
-    <option name="x" value="517" />
     <option name="y" value="23" />
-    <option name="width" value="923" />
+    <option name="width" value="1440" />
     <option name="height" value="781" />
   </component>
   <component name="ProjectView">
-    <navigator currentView="Scope" currentSubView="Project Files" proportions="" version="1">
+    <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
@@ -125,12 +103,7 @@
             <path>
               <item name="Master" type="b2602c69:ProjectViewProjectNode" />
               <item name="Master" type="462c0819:PsiDirectoryNode" />
-              <item name="tree" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Master" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Master" type="462c0819:PsiDirectoryNode" />
-              <item name="vdom" type="462c0819:PsiDirectoryNode" />
+              <item name="web" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -142,36 +115,6 @@
             <path>
               <item name="Root" type="cbb8eebc:String" user="Root" />
               <item name="Master" type="cbb8eebc:String" user="Master" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="Master" type="cbb8eebc:String" user="Master" />
-              <item name="base" type="cbb8eebc:String" user="base" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="Master" type="cbb8eebc:String" user="Master" />
-              <item name="leetcode" type="cbb8eebc:String" user="leetcode" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="Master" type="cbb8eebc:String" user="Master" />
-              <item name="sort" type="cbb8eebc:String" user="sort" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="Master" type="cbb8eebc:String" user="Master" />
-              <item name="tree" type="cbb8eebc:String" user="tree" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="Master" type="cbb8eebc:String" user="Master" />
-              <item name="vdom" type="cbb8eebc:String" user="vdom" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="Master" type="cbb8eebc:String" user="Master" />
-              <item name="web" type="cbb8eebc:String" user="web" />
             </path>
           </expand>
           <select />
@@ -261,17 +204,57 @@
       <workItem from="1564037918912" duration="8485000" />
       <workItem from="1564279952161" duration="43000" />
       <workItem from="1564280038383" duration="21000" />
+      <workItem from="1564362406514" duration="4294000" />
+      <workItem from="1564448030683" duration="2000" />
+      <workItem from="1564449717185" duration="5341000" />
+      <workItem from="1564476155370" duration="549000" />
+      <workItem from="1565599483690" duration="5529000" />
+      <workItem from="1565658532051" duration="11549000" />
+      <workItem from="1565746510293" duration="2616000" />
+      <workItem from="1565770553787" duration="702000" />
+      <workItem from="1565775951708" duration="27000" />
+      <workItem from="1565776010574" duration="321000" />
+      <workItem from="1565866387394" duration="260000" />
+      <workItem from="1566176905278" duration="4579000" />
+      <workItem from="1566281638648" duration="1450000" />
+      <workItem from="1566350359622" duration="19000" />
+      <workItem from="1566369131422" duration="946000" />
+      <workItem from="1566887873237" duration="4482000" />
+      <workItem from="1566953389117" duration="832000" />
+      <workItem from="1566981389923" duration="157000" />
+      <workItem from="1567066958547" duration="283000" />
+      <workItem from="1567151483905" duration="4504000" />
+      <workItem from="1567504687793" duration="529000" />
+      <workItem from="1567730958296" duration="169000" />
+      <workItem from="1567734103682" duration="1462000" />
+      <workItem from="1568170701748" duration="9643000" />
+      <workItem from="1568253842517" duration="30000" />
+      <workItem from="1568254138309" duration="1279000" />
+      <workItem from="1568278508019" duration="25000" />
+      <workItem from="1568279447466" duration="271000" />
+      <workItem from="1568280604879" duration="743000" />
+      <workItem from="1568511760616" duration="394000" />
+      <workItem from="1568613797616" duration="7000" />
+      <workItem from="1568615583809" duration="5613000" />
+      <workItem from="1568701849170" duration="111000" />
+      <workItem from="1568703745479" duration="371000" />
+      <workItem from="1569200470325" duration="356000" />
+      <workItem from="1569210036484" duration="769000" />
+      <workItem from="1569221884892" duration="2000" />
+      <workItem from="1570756828558" duration="431000" />
+      <workItem from="1570766229855" duration="320000" />
+      <workItem from="1571020271017" duration="5106000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="108522000" />
+    <option name="totallyTimeSpent" value="184595000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2652051" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.20933522" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
@@ -317,38 +300,10 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="8" />
+      <option name="time" value="10" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/vdom/vdeom.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="532">
-          <caret line="28" column="56" selection-start-line="28" selection-start-column="56" selection-end-line="28" selection-end-column="56" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vdom/vdeom.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
-          <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/react/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1634">
-          <caret line="86" column="60" selection-start-line="86" selection-start-column="60" selection-end-line="86" selection-end-column="60" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/react/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1634">
-          <caret line="86" column="60" selection-start-line="86" selection-start-column="60" selection-end-line="86" selection-end-column="60" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/react/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1634">
@@ -574,31 +529,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/es/esfc.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="1" column="17" lean-forward="true" selection-start-line="1" selection-start-column="17" selection-end-line="1" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external/lib.es5.d.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="239">
           <caret line="1165" column="8" lean-forward="true" selection-start-line="1165" selection-start-column="8" selection-end-line="1165" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="14" column="50" selection-start-line="14" selection-start-column="50" selection-end-line="14" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/base/debounce.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="13" column="31" lean-forward="true" selection-start-line="13" selection-start-column="31" selection-end-line="13" selection-end-column="31" />
         </state>
       </provider>
     </entry>
@@ -609,66 +543,115 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sort/sort.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-913">
-          <caret line="2" column="1" selection-start-line="2" selection-start-column="1" selection-end-line="2" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/base/bind.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="258">
-          <caret line="85" column="27" selection-start-line="85" selection-start-column="20" selection-end-line="85" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/subsribe/subscribe.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="2" column="16" selection-start-line="2" selection-start-column="16" selection-end-line="2" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/diff.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="17" column="7" selection-start-line="17" selection-start-column="7" selection-end-line="17" selection-end-column="7" />
+        <state relative-caret-position="619">
+          <caret line="111" column="46" lean-forward="true" selection-start-line="111" selection-start-column="46" selection-end-line="111" selection-end-column="46" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/vdom/vdeom.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="361">
-          <caret line="19" column="56" selection-start-line="19" selection-start-column="56" selection-end-line="19" selection-end-column="56" />
+        <state relative-caret-position="684">
+          <caret line="36" column="6" selection-start-line="36" selection-start-column="6" selection-end-line="36" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="428">
+          <caret line="42" selection-start-line="42" selection-end-line="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/temp/review.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="437">
+          <caret line="23" lean-forward="true" selection-start-line="23" selection-end-line="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/base/bind.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-84">
+          <caret line="78" column="12" selection-start-line="78" selection-start-column="11" selection-end-line="78" selection-end-column="12" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/base/deepcopy.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="13" column="31" selection-start-line="13" selection-start-column="17" selection-end-line="13" selection-end-column="31" />
+        <state relative-caret-position="494">
+          <caret line="26" column="28" lean-forward="true" selection-start-line="26" selection-start-column="28" selection-end-line="26" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/base/debounce.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="410">
+          <caret line="48" lean-forward="true" selection-start-line="48" selection-end-line="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/base/promise.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="239">
+          <caret line="65" column="35" selection-start-line="65" selection-start-column="35" selection-end-line="65" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/es/esfc.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="19">
+          <caret line="1" column="17" selection-start-line="1" selection-start-column="17" selection-end-line="1" selection-end-column="17" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/leetcode/base.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="10" column="13" lean-forward="true" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+        <state>
+          <caret column="3" lean-forward="true" selection-start-column="3" selection-end-line="1" selection-end-column="3" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tree/binarytree.js">
+    <entry file="file://$PROJECT_DIR$/subsribe/subscribe.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="179" column="70" selection-start-line="179" selection-start-column="70" selection-end-line="179" selection-end-column="70" />
+        <state relative-caret-position="57">
+          <caret line="3" column="25" selection-start-line="3" selection-start-column="13" selection-end-line="3" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sort/sort.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="524">
+          <caret line="99" column="17" lean-forward="true" selection-start-line="99" selection-start-column="17" selection-end-line="99" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/inherit.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="15" column="53" selection-start-line="15" selection-start-column="53" selection-end-line="15" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/mydiff.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/web/shallowEqual.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="23" selection-start-column="23" selection-end-column="54" />
+        <state relative-caret-position="38">
+          <caret line="2" column="19" lean-forward="true" selection-start-line="2" selection-start-column="19" selection-end-line="2" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tree/binarytree.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="106">
+          <caret line="217" column="9" lean-forward="true" selection-start-line="217" selection-start-column="9" selection-end-line="217" selection-end-column="9" />
         </state>
       </provider>
     </entry>
