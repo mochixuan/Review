@@ -1,11 +1,14 @@
-// 防抖、节流
+// 防抖:debounce(防的是最后一次: 进入页面、或者第一次: 网络请求、输入后网络请求)、节流:Throttle:鼠标移动
 function debounce(func, wait,immediate) {
     let timeout;
     const debounced = function () {
         const thisArg = this;
-        const args = arguments;
+        const args = [...arguments];
 
-        if (timeout) clearTimeout(timeout)
+        if (timeout) {
+            clearTimeout(timeout)
+            timeout = undefined;
+        }
 
         let result;
         if (immediate) {
@@ -58,3 +61,30 @@ class TestTableClass {
 }
 
 console.log('decorator',TestTableClass.isEnable)
+
+function throttle(fn, wait) {
+    let timeout;
+    let last = 0;
+    function throttled() {
+        const thisArg = this;
+        const args = [...arguments];
+        if (timeout != null) {
+            clearTimeout(timeout);
+            timeout = null;
+        }
+        const current = new Date().getTime();
+        if ((current - last)/1000 >= wait) {
+            last = new Date().getTime();
+            fn(args);
+        }
+        timeout = setTimeout(()=>{
+            last = new Date().getTime();
+            fn(args);
+        }, wait)
+    }
+    function cancel() {
+        last = 0;
+        clearTimeout(timeout);
+        timeout = null;
+    }
+}

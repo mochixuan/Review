@@ -1,8 +1,13 @@
 # 常见题总结
-
 ## JS
 ##### JS数据类型
 > 1 Null 、2 undefined 、 3 boolean 、 4 Number 、5 String 、6 Symbol 、 7 Object
+
+##### [变量提升](https://www.cnblogs.com/sexintercourse/p/9748827.html)
+- 如果变量声明在函数里面，则将变量声明提升到函数的开头。
+- 如果变量声明是一个全局变量，则将变量声明提升到全局作用域的开头。
+
+##### [CommonJs和es6的Module](https://blog.csdn.net/itpika/article/details/104240804)
 
 ##### ES基本方法
 - filter 过滤
@@ -39,6 +44,7 @@ Person.call(obj) // {}.构造函数()
 - 但是由于JS中函数也是一种对象，所以函数也拥有__proto__和constructor属性.
 
 - 原型、实例、构造函数：每个构造函数(constructor)都有一个原型对象(prototype),原型对象都包含一个指向构造函数的指针,而实例(instance)都包含一个指向原型对象的内部指针。
+- person.constructor.prototype、person.constructor = Person
 - 原型链: 一个对象的原型层层递进直到寻找到Object的原型对象，这样的原型和实例所形成的链条叫做原型链。
 - 第一种是使用 instanceof 操作符, 只要用这个操作符来测试实例(instance)与原型链中出现过的构造函数,结果就会返回true. 以下几行代码就说明了这点.
 
@@ -62,6 +68,8 @@ Person.call(obj) // {}.构造函数()
 - apply、call差别：所以 apply 和 call 的区别是 call 方法接受的是若干个参数列表，而 apply 接收的是一个包含多个参数的数组。
 - bind()方法创建一个新的函数, 当被调用时，将其this关键字设置为提供的值，在调用新函数时，在任何提供之前提供一个给定的参数序列。1. bind返回的函数被new调用作为构造函数则绑定会失效，this重新指向原函数。2.定义了绑定后函数的 length 属性和 name 属性（不可枚举属性）3. 绑定后函数的原型需指向原来的函数 。
 - call、apply直接调用，bind需要在调用。bind是生成新的函数内部也用call进行this的指向的改变。call，apply可以去实现js继承关系。
+
+##### [](https://juejin.im/post/5ca2e1935188254416288eb2)
 
 ##### JS异步
 > JS是单线程，但浏览器内核可以多线程执行任务。浏览器一般会有三个线程javascript执行线程。GUI线程、事件触发线程。其他的异步任务是在浏览器的其他线程执行的，执行完成后会把结果返回js执行的任务队列的最后。
@@ -103,6 +111,8 @@ Person.call(obj) // {}.构造函数()
 
 ##### 为什么JS为单线程
 > 我们都知道 JavaScript 是一门 单线程 语言，也就是说同一时间只能做一件事。这是因为 JavaScript 生来作为浏览器脚本语言，主要用来处理与用户的交互、网络以及操作 DOM。这就决定了它只能是单线程的，否则会带来很复杂的同步问题。例如一个删除一个修改，可能就崩溃了。
+
+- 当宏任务执行完，会在渲染前，将执行期间所产生的所有微任务都执行完。
 
 ##### promise和async+await对比
 - async/await: 
@@ -166,3 +176,8 @@ function createEnhanceObj(o) {
     return clone;
 }
 ``` 
+
+### JS测试篇
+> 单元测试、性能测试、安全测试、功能测试
+
+##### 单元测试

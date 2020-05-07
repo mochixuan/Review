@@ -6,7 +6,7 @@ Parent.prototype.say = function (name) {
     console.log(`parent say ${name}`)
 }
 
-function Child(name, age) {
+function Child(name, age) { 
     Parent.call(this,name);
     this.age = age;
 }

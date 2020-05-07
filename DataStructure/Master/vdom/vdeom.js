@@ -7,7 +7,7 @@ function createElement(tag,attrs,children) {
 }
 
 function diff(newDom,oldDom) {
-
+ 
     let patchDom;
 
     // string

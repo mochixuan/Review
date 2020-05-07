@@ -10,11 +10,11 @@
 
 // Map: Map对象保存键值对，类似于数据结构字典；与传统上的对象只能用字符串当键不同，Map对象可以使用任意值当键
 // WeakMap: 对象保存键值对，与Map不同的是其键必须是对象，因为键是弱引用，在键对象消失后自动释放内存.
-function deepCopy(data,map = new WeakMap()) {
+function deepCopy(data, map = new WeakMap()) {
     if (!data || typeof data !== 'object') return data; // null也是object
 
     const result = Array.isArray(data) ? [] : {};
-
+ 
     if (map.has(data)) {
         return map.get(data);
     } else {

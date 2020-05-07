@@ -21,10 +21,10 @@ class Promise1 {
             }
         }
         executor(resolve,reject);
-    }
+    } 
 
+    // then里函数有三种情况，需要返回不同的Promise状态，且Promise一但生成不能改状态
     then = (onFulfilled,onRejected) => {
-
         const promise = new Promise((resolved,rejected) => {
             if (this.state === 'pending') {
                 if (onFulfilled) {
@@ -59,7 +59,6 @@ class Promise1 {
                 }
             }
         });
-
         return promise;
     }
 

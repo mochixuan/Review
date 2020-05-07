@@ -12,3 +12,19 @@ const observe = {
         }
     }
 }
+
+
+const window = {
+    listener: {},
+    addListener: (tag,func) => {
+        listener[tag] = func;
+    },
+    removeListener: (tag) => {
+        delete listener[tag];
+    },
+    dispatch: (tag,args) => {
+        if (listener[tag] != null) {
+            listener[tag](args);
+        }
+    }
+}

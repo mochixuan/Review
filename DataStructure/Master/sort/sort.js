@@ -3,7 +3,7 @@ function generateTestData() {
 }
 
 // https://lrh1993.gitbooks.io/android_interview_guide/content/data-structure/sort.html ：最后
-
+ 
 /**
  * 冒泡排序
  * 规则: 比较相邻的元素。如果第一个比第二个大，就交换他们两个
@@ -78,7 +78,6 @@ function quick(items,low,high) {
         high = items.length - 1;
     }
 
-
     if (low >= high) return items;
 
     let middle = getMiddle(items,low,high);
@@ -103,3 +102,25 @@ function getMiddle(items,start,end) {
 console.log('quick sort:',quick(generateTestData()))
 
 // 归并排序
+function quickSort(data, start, end) {
+    if (start == null || end == null) {
+        start = 0;
+        end = data.length-1;
+    }
+    if (start >= end || !Array.isArray(data)) return data;
+    const middle = getMiddle(data, start, end);
+    quickSort(data, start, middle - 1)
+    quickSort(data, middle + 1, end)
+}
+
+function getMiddle(data, start, end) {
+    let temp = data[start];
+    while(start < end) {
+        while(start < end && temp <= data[end]) --end;
+        data[start] = data[end]; 
+        while(start < end && temp >= data[start]) ++start;
+        data[end] = data[start];
+    }
+    data[start] = temp;
+    return start;
+}

@@ -3,6 +3,7 @@
 ## Android
 
 ##### Serializable和Parcelable序列化对象
+> 把对象转换为字节序列的过程称为对象的序列化。
 ###### 序列化的目的：
 > 在安卓中进程之间的数据传输只支持基本的数据类型，如果要传输复杂的对象，需要在一端进行序列化数据，另一端进行反序列化。序列化只对变量序列化不对对象做序列化。
 ##### Parcelable
@@ -61,6 +62,8 @@
 	- 去除httpclient
 	- 限制非 SDK 接口的调用.
 	- 前台服务权限
+>- 10.0 存储范围变更:
+	- 类似于沙盒
 
 ##### Handler
 - 非静态的匿名内部类(匿名内部类会隐式的继承一个类或者实现一个接口)会持有外部类的引用。
@@ -139,11 +142,6 @@
 	- 尽量采用静态内部类，这样可以避免潜在的由于内部类而导致的内存泄漏。
 - 卡顿检查: BlockCanary
 
-##### [Android 内存泄露](https://www.jianshu.com/p/76959115d486)
-- 静态存储区（方法区）：主要存放静态数据、全局 static 数据和常量。这块内存在程序编译时就已经分配好，并且在程序整个运行期间都存在。
-- 栈区 ：当方法被执行时，方法体内的局部变量都在栈上创建，并在方法执行结束时这些局部变量所持有的内存将会自动被释放。因为栈内存分配运算内置于处理器的指令集中，效率很高，但是分配的内存容量有限。
-- 堆区 ： 又称动态内存分配，通常就是指在程序运行时直接 new 出来的内存。这部分内存在不使用时将会由 Java 垃圾回收器来负责回收。
-
 ##### 热修复
 - Android的类加载器分为两种,PathClassLoader和DexClassLoader，两者都继承自BaseDexClassLoader。
 	- PathClassLoader: 用来加载系统类和应用类。
@@ -158,10 +156,10 @@
 	- 堆: 对象实例、方法内部变量(复杂类型)、动态变量
 	- 栈: 静态变量、常量、对象的指针、方法内部变量(静态类型) 、基本数据类型。
 
-##### RecyclerView的缓存机制
+##### [RecyclerView的缓存机制](https://juejin.im/post/5a5d3d9b518825734216e1e8)
 > 四级缓存，比ListView多两层缓存。缓存的东西也不一样，ListView缓存是View，而recyclerView缓存单位是ViewHolder。RecyclerView api更多，可以实现局部刷新。
 
-- mAttachedScrap: List<ViewHolder>实现屏幕内的ItemView快速复用。在onLayout时被先移除children，在添加进来。滑动时的复用不是在这里。不需要调用onCreateViewHolder、onBindViewHolder.
+- mAttachedScrap: List<ViewHolder>实现屏幕内的ItemView快速复用。在onLayout时被先移除children，在添加进来。滑动时的复用不是在这里。不需要调用onCreateViewHolder、onBindViewHolder.具有两次 onLayout() 过程，第二次 onLayout() 中直接使用第一次 onLayout() 缓存的 View，而不必再创建。
 	- mChangedScrap: 则是存储 notifXXX 方法时需要改变的 ViewHolder。 
 - mCachedView: 当滑出屏幕的ItemView会被缓存到CachedView。
 - mViewCacheExtension: 没有实现的，需要自己去实现，当在CachedView+RecyclerPool都没有时才会查找这个。一般都不写。
@@ -188,7 +186,9 @@
 
 ##### [LeakCanary](https://blog.csdn.net/xiaohanluo/article/details/78196755)
 
-##### 自定义View
+##### [BlockCanary](https://www.jianshu.com/p/e58992439793)
+
+##### [绘制](https://lrh1993.gitbooks.io/android_interview_guide/content/android/basis/decorview.html) [自定义View](https://lrh1993.gitbooks.io/android_interview_guide/content/android/basis/custom_view.html)
 > View绘制从上而下，Activity->PhoneWindow->DecorView->ViewGround->View
 
 - 绘制流程
@@ -212,7 +212,8 @@
 
 ##### Android GC回收机制
 
-##### [垃圾回收机制](https://juejin.im/post/5ce50acdf265da1bb0039583#heading-20)
+##### [垃圾回收机制1](https://juejin.im/post/5ce50acdf265da1bb0039583#heading-20)
+##### [垃圾回收机制2](https://juejin.im/post/5b17a5475188257d6225a7a2)
 - 标记清除
 - 复制
 - 标记整理
@@ -238,7 +239,7 @@
 - 堆(heap)：堆内存用于存放由new创建的对象和数组。在堆中分配的内存，由java虚拟机自动垃圾回收器来管理。JVM只有一个堆区(heap)被所有线程共享，堆中不存放基本类型和对象引用，只存放对象本身。
 - 方法区(method): 又叫静态区，跟堆一样，被所有的线程共享。方法区包含所有的class和static变量(1.7方法区、1.8常量池)。
 
-##### Dalvik VM(7.0回归) 与 ART(4.4 混合、5.0-6.0) 的不同
+##### [Dalvik VM(7.0回归) 与 ART(4.4 混合、5.0-6.0) 的不同](https://juejin.im/post/5c232907f265da61662482b4#comment)
 - DVM使用JIT来将字节码转换成机器码，效率低。
 - ART采用了AOT预编译技术，执行速度更快。
 - ART会占用更多的应用安装时间和存储空间。
@@ -248,6 +249,12 @@
 
 ##### [Android Hook](https://blog.csdn.net/gdutxiaoxu/article/details/81459830)
 > Hook 又叫“钩子”，它可以在事件传送的过程中截获并监控事件的传输，将自身的代码与系统方法进行融入。这样当这些方法被调用时，也就可以执行我们自己的代码，这也是面向切面编程的思想（AOP）。
+
+##### [Android 内存模型](https://www.jianshu.com/p/76959115d486)
+- 静态存储区（方法区）：主要存放静态数据、全局 static 数据和常量。这块内存在程序编译时就已经分配好，并且在程序整个运行期间都存在。
+- 栈区 ：当方法被执行时，方法体内的局部变量都在栈上创建，并在方法执行结束时这些局部变量所持有的内存将会自动被释放。因为栈内存分配运算内置于处理器的指令集中，效率很高，但是分配的内存容量有限。
+- 堆区 ： 又称动态内存分配，通常就是指在程序运行时直接 new 出来的内存。这部分内存在不使用时将会由 Java 垃圾回收器来负责回收。
+- Java内存模型（Java Memory Model ,JMM）就是一种符合内存模型规范的，屏蔽了各种硬件和操作系统的访问差异的，保证了Java程序在各种平台下对内存的访问都能保证效果一致的机制及规范。
 
 ##### Glide
 - with: Glide监控生命周期是通过向对象(Activity、Fragment)里添加一个隐藏的Fragment去监控生命周期，用于在Activity被摧毁时进行销毁。

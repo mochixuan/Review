@@ -1,21 +1,18 @@
 Function.prototype.bind1 = function bind(thisArg) {
-    if (typeof this !== 'function') return new TypeError(thisArg+"not function")
-    // arguments 是个伪数组对象，没有slice
-    let oldArgs = Array.prototype.slice.call(arguments,1);
-    //let [tempThis,...temp2] = [...arguments];
-    let self = this;
-    let bound = function (args) {
-        if (this instanceof bound) {
-            const TempFC = function () {}
-            TempFC.prototype = self.prototype;
-            bound.prototype = new TempFC()
-        }
-        let newArgs = Array.prototype.slice.call(arguments);
-        let allArgs = oldArgs.concat(newArgs);
-        return self.apply(thisArg,allArgs);
+    if (typeof this !== 'function') throw new Error(`${this} must be a function`)
+    const _self = this;
+    const arg1 = Array.prototype.slice.call(thisArg, 1);
+    function EmptyFC() {}
+    function bound() {
+        const arg2 = Array.prototype.slice.call(thisArg);
+        const arg = arg1.concat(arg2);
+        return _self.apply(this instanceof EmptyFC ? this : thisArg, arg)
     }
+    EmptyFC.prototype = _self.prototype;
+    bound.prototype = new EmptyFC();
     return bound;
 }
+
 
 let obj = {
     name: 'mochixuan'
@@ -24,34 +21,13 @@ let obj = {
 function test(a,b) {
     console.log('test',this)
 }
+test.prototype.wx = 'wang xuan';
 let bindFC = test.bind1(obj,[1,2,3])
 bindFC(1,2)
 const instance = new bindFC(1,2)
 
-Function.prototype.bind2 = function (thisArg) {
-    if (typeof this !== 'function') return new TypeError(this+'must be function')
-    const arg1 = Array.prototype.slice.call(arguments,1);
-    const self = this;
-    const bound = function (args) {
-
-        if (this instanceof bound) {
-            if (self.prototype) {
-                function TempFC() {}
-                TempFC.prototype = self.prototype;
-                bound.prototype = new TempFC();
-            }
-            return self.apply(this,allArgs);
-        } else {
-            const arg2 = Array.prototype.slice.call(arguments);
-            const allArgs = arg1.concat(arg2);
-            return self.apply(thisArg,allArgs);
-        }
-    }
-    if (self.prototype) {
-        bound.prototype = Object.create(self.prototype);
-    }
-    return bound;
-}
+console.warn('bindFC.prototype', bindFC.prototype.wx);
+console.warn('new bindFC.wx', bindFC.wx);
 
 let obj1 = {
     name: 'mochixuan'
@@ -60,12 +36,6 @@ function test2(a,b){
     this.name = 1
     console.log('test2',this)
 }
-
-let bind2FC = test2.bind2(obj1);
-bind2FC(1,2);
-const instance2 = new bind2FC(1,2);
-console.log('bind2FC',bind2FC.name)
-console.log('instance2', instance2)
 
 // call
 Function.prototype.call1 = function () {
