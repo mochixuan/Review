@@ -101,26 +101,30 @@ function getMiddle(items,start,end) {
 
 console.log('quick sort:',quick(generateTestData()))
 
-// 归并排序
-function quickSort(data, start, end) {
-    if (start == null || end == null) {
-        start = 0;
-        end = data.length-1;
-    }
-    if (start >= end || !Array.isArray(data)) return data;
-    const middle = getMiddle(data, start, end);
-    quickSort(data, start, middle - 1)
-    quickSort(data, middle + 1, end)
+function mergeArr(a, b) {
+    let result = [];
+    let i = 0,j = 0;
+    while(i <= a.length -1 && j <= b.length - 1 ) {
+        if (a[i] < b[j]) {
+            result.push(a[i]);
+            i++;
+        } else {
+            result.push(a[j]);
+            j++;
+        }
+    };
+    if (i <= a.length - 1) result = result.concat(a.slice(i));
+    if (j <= b.length - 1) result = result.concat(b.slice(j));
+    return result;
 }
 
-function getMiddle(data, start, end) {
-    let temp = data[start];
-    while(start < end) {
-        while(start < end && temp <= data[end]) --end;
-        data[start] = data[end]; 
-        while(start < end && temp >= data[start]) ++start;
-        data[end] = data[start];
-    }
-    data[start] = temp;
-    return start;
+// 归并排序: nlog(n)
+function mergeSort(arr) {
+    if (arr.length <= 1) return arr;
+    const mid = Math.floor(arr.length / 2);
+    const left = arr.slice(0, mid);
+    const right = arr.slice(mid);
+    return mergeArr(mergeSort(left), mergeSort(right));
 }
+
+console.warn("快速排序: ", mergeSort([13, 14, 15, 17, 20, 23, 28, 42]));

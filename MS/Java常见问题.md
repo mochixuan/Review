@@ -14,5 +14,9 @@
 - HashMap的数组长度一定是2的次幂: 方便扩展，当增加一倍时，之前已经插入的数据的位置只需平易或者加一倍就可以了。
 - equals方法需同时重写hashCode方法: 如果2个对象通过equals调用后返回是true，那么这个2个对象的hashCode方法也必须返回同样的int型散列码如果2个对象通过equals返回false，他们的hashCode返回的值允许相同.
 
+##### ConcurrentHashMap
+
+##### LinkedHashMap
+
 ##### [红黑树和AVL](https://blog.csdn.net/mmshixing/article/details/51692892 )
 - 红黑树的查询性能略微逊色于AVL树，因为他比avl树会稍微不平衡最多一层，也就是说红黑树的查询性能只比相同内容的avl树最多多一次比较，但是，红黑树在插入和删除上完爆avl树，avl树每次插入删除会进行大量的平衡度计算，而红黑树为了维持红黑性质所做的红黑变换和旋转的开销，相较于avl树为了维持平衡的开销要小得多。

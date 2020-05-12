@@ -9,7 +9,7 @@ Parent.prototype.say = function (name) {
 function Child(name, age) { 
     Parent.call(this,name);
     this.age = age;
-}
+} 
 
 // 继承原型链，使用 Object.create 防止
 // 1. Child.prototype = Parent.prototype 的原因是怕共享内存，修改父类原型对象就会影响子类, 修改子类的原型父类的原型也会被改变

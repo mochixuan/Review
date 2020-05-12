@@ -200,7 +200,13 @@
 			- EXACTLY: match_parent、确定大小。
 			- AT_MOST: View的大小不能大于父容器的大小.wrap_content.
 	- 2. 布局: ayout用于确定子View的位置.
-	- 3. 绘制: draw负责绘制自己.
+	- 3. 绘制: draw负责绘制自己. 
+		- FontMetircs 高度 top ascent baseline descent bottom 
+		- drawText(text, 200, 100, paint) 左下角 
+		- getFontSpacing两个baseline距离
+		- 在 Android 里，硬件加速专指把 View 中绘制的计算工作交给 GPU 来处理。
+		- 绘制的计算工作由 CPU 转交给了 GPU
+		
 	- Mode
 - 刷新方法: 
 	- invalidate
@@ -265,6 +271,12 @@
 - 判断是否是GIF: 流中读取2个字节的数据，来判断这张图是GIF图还是普通的静图。
 - 内存缓存的主要作用是防止应用重复将图片数据读取到内存当中，而硬盘缓存的主要作用是防止应用重复从网络或其他地方重复下载和读取数据。
 - 内存缓冲: 正在使用中的图片使用弱引用来进行缓存，不在使用中的图片使用LruCache来进行缓存的功能。
+- 当内存不足的时候，Activity、Fragment会调用onLowMemory方法，可以在这个方法里去清除缓存，Glide使用的就是这一种方式来防止OOM。
+- 两个缓存都是LruCache。不使用原生的，使用的是LinkedHashMap实现的。
+- RGB_565每像素大小4. ARGB_8888每像素2。
+-  Glide内存开销是Picasso的一半，就是因为默认Bitmap格式不同。
+-  8.0 Bitmap存储在native里不会出现OOM。
+-  文中开头列出 Fresco 的优点是：“在5.0以下(最低2.3)系统，Fresco将图片放到一个特别的内存区域(Ashmem区)” 这个Ashmem区是一块匿名共享内存，Fresco 将Bitmap像素放到共享内存去了，共享内存是属于native堆内存。Fresco 使用匿名共享内存来保存Bitmap数据。
 
 ##### 图片缓冲机制大致步骤
 > 三级缓冲: 磁盘缓存、内存缓存、网络缓存

@@ -9,6 +9,8 @@
 
 ##### [CommonJs和es6的Module](https://blog.csdn.net/itpika/article/details/104240804)
 
+##### class 对于 = 号声明的方法、变量，都会将其作为实例的属性，而对于非 = 号声明的属性，则是放在原型链上。
+
 ##### ES基本方法
 - filter 过滤
 - splice(index,howmany,item1,.....,itemX):从数组中添加/删除项目，然后返回被删除的项目index:从那个位置开始 howmany 删除的数量，item1...itemX添加什么。

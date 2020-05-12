@@ -18,11 +18,11 @@ function deepCopy(data, map = new WeakMap()) {
     if (map.has(data)) {
         return map.get(data);
     } else {
-        map.set(data,result);
+        map.set(data, result);
     }
 
     for (let key in data) {
-        if (key != null && data.hasOwnProperty(key)) { //原型链上的可枚举属性，去除原型链上的数据
+        if (key != null && data.hasOwnProperty(key)) { // 原型链上的可枚举属性，去除原型链上的数据
             if (typeof data === 'object') {
                 result[key] = deepCopy(data[key],map);
             } else {

@@ -26,7 +26,7 @@ function shallowEqual(objA, objB) {
     //有个不是对象类型或者有个是null,那么我们就直接返回，认为他不同。其主要目的是为了确保两个都是对象，并且不是null。
     if (typeof objA !== 'object' || objA === null || typeof objB !== 'object' || objB === null) {
         return false
-    }
+    } 
 
     var keysA = Object.keys(objA);
     var keysB = Object.keys(objB);

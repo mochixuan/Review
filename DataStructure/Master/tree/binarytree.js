@@ -6,7 +6,7 @@ function BinaryTree(value) {
 
 console.log("===== 排序二叉树 开始=====")
 console.log("排序二叉树(二叉查找树：查找的时间复杂度为树的高度)：没个树节点的左孩子一定该节点，右孩子一定大于该节点")
-
+ 
 function sortInsertNode(node,newNode) {
     if (node.value < newNode.value) {
         if (node.right == null) { 

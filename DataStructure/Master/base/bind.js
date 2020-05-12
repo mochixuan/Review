@@ -8,6 +8,7 @@ Function.prototype.bind1 = function bind(thisArg) {
         const arg = arg1.concat(arg2);
         return _self.apply(this instanceof EmptyFC ? this : thisArg, arg)
     }
+    // new 之后原来_self的原型链东西必须保存
     EmptyFC.prototype = _self.prototype;
     bound.prototype = new EmptyFC();
     return bound;
