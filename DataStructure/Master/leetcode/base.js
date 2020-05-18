@@ -1,41 +1,18 @@
-var romanToInt = function (s) {
-    const arr = s.split("").reverse();
-    for (let i = 0 ; i < arr.length ; i++) {
-        switch (arr[i]) {
-            case "I":
-                arr[i] = 1;
-                break;
-            case "V":
-                arr[i] = 5;
-                break;
-            case "X":
-                arr[i] = 10;
-                break;
-            case "L":
-                arr[i] = 50;
-                break;
-            case "C":
-                arr[i] = 100;
-                break;
-            case "D":
-                arr[i] = 500;
-                break;
-            case "M":
-                arr[i] = 1000;
-                break;
-        }
+// 最大公约数
+let gcd1 = (a, b) => {
+    let min = a > b ? b : a;
+    let max = a > b ? a : b;
+    let temp;
+    while (min !== 0) {
+        temp = max%min;
+        max = min;
+        min = temp;
     }
-    let min = arr[0];
-    result = arr[0];
-    for (let i = 1; i < arr.length; i++) {
-        if (min > arr[i]) {
-            result = result - arr[i];
-        } else {
-            min = arr[i];
-            result = result + arr[i];
-        }
-    }
-    return result;
-};
-
-console.warn(romanToInt("IX"))
+    return max;
+}
+let gcd = (max,min) => {
+    if (min === 0) return max;
+    let temp = max%min;
+    if (temp === 0) return min;
+    return gcd(min, temp);
+}

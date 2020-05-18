@@ -138,6 +138,10 @@ Person.call(obj) // {}.构造函数()
 	- interface可以实现extends 、implement、合并。
 
 ##### [JS事件委托、捕获、冒泡](https://www.jianshu.com/p/d3e9b653fa95)
+##### [事件三阶段](https://www.cnblogs.com/Leophen/p/11405579.html)
+
+- stopPropagation：阻止冒泡
+
 ``` 
 // 事件监听，第三个参数是布尔值，默认false，false是事件冒泡，true是事件捕获
 document.getElementById('box3').addEventListener('click', sayBox3, false);
