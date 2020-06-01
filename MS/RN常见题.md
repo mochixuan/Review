@@ -422,6 +422,53 @@ Sagas属于一个错误管理模式，也同时用于控制复杂事务的执行
 - Android Application实现ReactNativeHost
 - ReactActivityDelegate 核心处理。Update Readme
 
+##### [原生组件通信、交互、实现ScrollView](https://www.jianshu.com/p/014acf7e9ef7)
+> 实现通信 X implements ReactPackage 实现 createNativeModules(仅能进行通信 promise、callback)、createViewManagers(可以实现View也可进行通信)。
+
+1. **createNativeModules**
+	1. promise和callback区别: callback只能调用一次是异步的、callback可以回参数，但只能返回基本的参数callback.invoke(100, 100, 200, 200);promise类似于js中promise有三个状态，可以实现链式处理。
+	2. 继承: ReactContextBaseJavaModule。
+	3. 使用方式 @ReactMethod注解形式。
+	4. 通信方式:
+		
+```js
+
+JS调用Native方法
+NativeModules.X.method(callback、promise、args)
+JS监听Native
+const NativeNotificationMoudule = new NativeEventEmitter(NativeModules.EventEmitterModule);
+NativeNotificationMoudule.addListener("WZUmeng",(response)=>{  })
+
+Native调用JS方法
+mReactApplicationContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit(eventName,data); 事件名+数据
+Native回馈JS监听
+callback、promise回调
+
+```
+		
+2. **createViewManagers**
+	1. JS如何传递属性给Naitve: props改变是 @ReactProps可以监控。
+	2. Native如何传递数据给JS属性上
+	3. 如何通过props调用Native方法
+	4. 如何传递属性: 
+
+``` js
+View发送给JS
+注册：将原生事件name映射到js事件name，类似于key-value。
+getExportedCustomDirectEventTypeConstants: 
+发送：数据给JS View
+reactContext.getJSModule(RCTEventEmitter.class).receiveEvent( view.getId(),NATIVE_EVENT_ON_SCROLL ,map);
+JS 端的props的方法onScroll等可以通过这个。 
+  
+View接收JS   
+注册：JS发送到Native的方法
+getCommandsMap  
+接收：Native端接收的方法、ID为注册的ID       
+receiveCommand
+
+```
+	
+
 ##### [Fiber](https://juejin.im/post/5a2276d5518825619a027f57) [Fiber1](https://zhuanlan.zhihu.com/p/57346388) [Fiber2](https://juejin.im/post/5dadc6045188255a270a0f85) [Fiber过程较好](https://blog.csdn.net/sinat_17775997/article/details/93774887)
 > 改变了之前react的组件渲染机制，新的架构使原来同步渲染的组件现在可以异步化，可中途中断渲染，执行更高优先级的任务。释放浏览器主线程.
 

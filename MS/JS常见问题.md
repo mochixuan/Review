@@ -3,6 +3,11 @@
 ##### JS数据类型
 > 1 Null 、2 undefined 、 3 boolean 、 4 Number 、5 String 、6 Symbol 、 7 Object
 
+##### [DOM和BOM](https://www.zhihu.com/question/20724662)
+- Document Object Model（文档对象模型），就是把「文档」当做一个「对象」来看待。
+- Browser Object Model（浏览器对象模型）,即把「浏览器」当做一个「对象」来看待。
+
+
 ##### [变量提升](https://www.cnblogs.com/sexintercourse/p/9748827.html)
 - 如果变量声明在函数里面，则将变量声明提升到函数的开头。
 - 如果变量声明是一个全局变量，则将变量声明提升到全局作用域的开头。
@@ -49,6 +54,8 @@ Person.call(obj) // {}.构造函数()
 - person.constructor.prototype、person.constructor = Person
 - 原型链: 一个对象的原型层层递进直到寻找到Object的原型对象，这样的原型和实例所形成的链条叫做原型链。
 - 第一种是使用 instanceof 操作符, 只要用这个操作符来测试实例(instance)与原型链中出现过的构造函数,结果就会返回true. 以下几行代码就说明了这点.
+
+##### instanceof和typeof的区别
 
 ##### 原型和原型链
 [链接1](https://blog.csdn.net/yucihent/article/details/79424506)
@@ -131,6 +138,8 @@ Person.call(obj) // {}.构造函数()
 > 函数作为参数层层嵌套
 
 ##### [TS](https://segmentfault.com/a/1190000010969537?utm_source=tag-newest)
+[TS1](https://www.jqhtml.com/24056.html)
+
 - 最简单判断该用readonly还是const的方法是看要把它做为变量使用还是做为一个属性。 做为变量使用的话用const，若做为属性则使用readonly。interface里的属性非常适合。
 - type 和 interface	
 	- 都可以描述函数和对象
@@ -139,6 +148,8 @@ Person.call(obj) // {}.构造函数()
 
 ##### [JS事件委托、捕获、冒泡](https://www.jianshu.com/p/d3e9b653fa95)
 ##### [事件三阶段](https://www.cnblogs.com/Leophen/p/11405579.html)
+
+- preventDefault 阻止默认事件
 
 - stopPropagation：阻止冒泡
 
@@ -187,3 +198,10 @@ function createEnhanceObj(o) {
 > 单元测试、性能测试、安全测试、功能测试
 
 ##### 单元测试
+
+##### 布局：position
+- absolute: 生成绝对定位的元素，相对于 static 定位以外的第一个父元素进行定位.
+- fixed: 生成绝对定位的元素，相对于浏览器窗口进行定位.
+- relative: 生成相对定位的元素，相对于其正常位置进行定位.
+- inherit: 规定应该从父元素继承 position 属性的值。
+- static: 默认值。没有定位，元素出现在正常的流中.

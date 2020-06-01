@@ -11,8 +11,30 @@
 ##### Parcelable与Serializable的性能比较
 > Oarcelable性能要优于Serializable。主要由于1.后者在序列化时会产生大量的临时数据，由于它使用的是反射机制进行序列化，会频繁的调用GC。而前者是使用IBinder，进程间通信。在读写时前者直接读写，后者是通过IO流的形式，它需要写到磁盘中，这也会造成内存性能消耗，但当数据需要进行磁盘序列化，只能用后者。1. 可以对性能进行提升。2. 多线程
 
+##### [静态代理和动态代理](https://blog.csdn.net/weixin_39079048/article/details/98852947)
+- 编译时就确定了被代理的类是哪一个，那么就可以直接使用静态代理；
+- 运行时才确定被代理的类是哪个，那么可以使用类动态代理;
+
 ##### kotlin
 - var 和 val的区别是val编译成java代码后会带上final修饰，final用来修饰属性、方法、类。被修饰的对象只能进行一次赋值，被修饰的类不能被继承。kotlin默认很多是final修饰的。如果一个类不允许其子类覆盖某个方法，则可以把这个方法声明为final方法。
+
+##### IBinder和AIDL
+1. 每一个进程都有一个虚拟地址空间。每个虚拟地址空间都包含了两块：一个用户空间，一个内核空间。用户空间是不能进行通信的，但内核空间可以。Binder便是通过内核空间进行通信的。
+2. IBinder只需要一次拷贝
+	1. 其他IPC需要 从用户空间copy到内核空间缓存区中，接收方开辟一段内存空间，然后通过系统调用将内核缓存区中的数据copy到接收方的内存缓存区。
+	2. 用户空间的虚拟内存地址是映射到物理内存中的,对虚拟内存的读写实际上是对物理内存的读写，这个过程就是内存映射。
+
+3. AIDL: IPC、多应用、多进程。Binder不能用于多进程
+4. Short类型不支持。不支持的类型要实现Parcelabel。
+5. AIDL步骤
+	1. 首先服务端或者别的App的。创建一个AIDL文件。里面包括一些要实现的功能定义和参数定义（interface IBookManager）. 
+	2. 之后编译一下生成一个IBookManager.java（class Stub extends android.os.Binder implements com.lvr.aidldemo.IBookManager）。
+	3. 定义service里面的生成一个Binder，Binder为生成的.java的对象。例如IBookManager.stub(){}.serive返回的值为Ibinder为生成的对象。
+	4. 把AIDL文件复制到客服端。客服端编译也会生成.java文件。客户端实现bindSerive.serive里有个mServiceConnection。mIBookManager = IBookManager.Stub.asInterface(binder)获取IBookManager可以使用了。
+6. in、out、inout 所有的非基本参数都需要一个定向tag来指出数据流通的方式，不管是 in , out , 还是 inout 。基本参数的定向tag默认是并且只能是 in。
+	1. in 客户端流向服务端.服务端修改了数据后不会改变客户端的数据。但是客户端的那个对象不会因为服务端对传参的修改而发生变动。
+	2. out 的话表现为服务端将会接收到那个对象的的空对象，但是在服务端对接收到的空对象有任何修改之后客户端将会同步变动。
+	3. inout 为定向 tag 的情况下，服务端将会接收到客户端传来对象的完整信息，并且客户端将会同步服务端对该对象的任何变动。
 
 ##### Activity
 - onReStart->onStart
@@ -284,6 +306,10 @@
 2. 首先会判断是否在内存中缓存，没有再去查找磁盘是否缓存，再没有就网络请求。
 3. 网络缓存: 先进行网络下载，把图片下载到本地，再对图片进行压缩和裁切，把裁切后的图片加入缓存和显示到界面上。
 3. 首先是内存缓存：一般都是LruCache (Least Recently Used)(内部是LinkedHashMap)是当缓存满了时候会优先淘汰最近最少使用的。一般每次都是应用最大内存的1/8。缓存前可以对。
+
+##### 保活
+- android:excludeFromRecents="true" 在任务队列里隐藏。
+- taskAffinity: 任务栈。taskAffinity 经常会和 singleTask 搭配使用,小程序里常用
 
 ##### RxJava: (链式编程)
 > 一个在 Java VM 上使用可观测的序列来组成异步的、基于事件的程序的库
