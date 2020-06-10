@@ -1,10 +1,10 @@
 Function.prototype.bind1 = function bind(thisArg) {
     if (typeof this !== 'function') throw new Error(`${this} must be a function`)
     const _self = this;
-    const arg1 = Array.prototype.slice.call(thisArg, 1);
+    const arg1 = Array.prototype.slice.call(arguments, 1);
     function EmptyFC() {}
     function bound() {
-        const arg2 = Array.prototype.slice.call(thisArg);
+        const arg2 = Array.prototype.slice.call(arguments);
         const arg = arg1.concat(arg2);
         return _self.apply(this instanceof EmptyFC ? this : thisArg, arg)
     }
@@ -85,3 +85,5 @@ function personFC(a,b) {
 console.warn(personFC.call1(person1,1,2))
 console.warn(personFC.apply1(person2,[1,2]))
 console.warn(personFC.apply1())
+
+

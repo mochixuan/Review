@@ -242,10 +242,35 @@ Promise2.reject = function(val) {
 
 Promise2.all = function(promises) {
     return new Promise2((resolve, reject) => {
+        let len = promises.length;
+        let count = 0;
+        let arr = []
         for (let i = 0; i < promises.length; i++) {
-            promises.then(resolve, reject);
+            let index = i;
+            Promise2.resolve(promises)
+              .then((result)=>{
+                count++;
+                arr[index] = result;
+                if (count === len) {
+                  resolve(arr);
+                }
+              }).catch((error)=>{
+                reject(error)
+              })
         }
     });
+}
+
+Promise2.race = function(promises) {
+  return new Promise2((resolve,reject)=>{
+    promises.forEach((item)=>{
+      item.then((result)=>{
+        resolve(result)
+      }).catch((error)=>{
+        reject(error)
+      })
+    })
+  })
 }
 
 Promise2.race = function(promises) {

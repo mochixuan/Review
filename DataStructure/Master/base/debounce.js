@@ -82,9 +82,11 @@ function throttle(fn, wait) {
             fn(args);
         }, wait)
     }
-    function cancel() {
+    throttled.cancel = () => {
         last = 0;
         clearTimeout(timeout);
         timeout = null;
     }
+
+    return throttled;
 }

@@ -2,6 +2,20 @@
 
 ## Android
 
+##### [类加载过程](https://juejin.im/post/5edde98de51d457b3c1e6922)
+1. 加载: 把.class的信息加载进放方法区。
+2. 验证: 验证是否符合JVM规范。
+3. 准备: 分配内存，设置初始化变量。
+4. 解析: 解析过程是将常量池内的符号引用替换成直接引用。
+5. 初始化: 静态变量赋予正确的值。
+
+##### 双亲委派
+1.自定义类加载器、2.应用类加载器、3.扩展类加载器、4.启动类加载器
+
+> 即防止内存中出现多份同样的字节码.
+
+
+
 ##### Serializable和Parcelable序列化对象
 > 把对象转换为字节序列的过程称为对象的序列化。
 ###### 序列化的目的：
@@ -14,11 +28,20 @@
 ##### [静态代理和动态代理](https://blog.csdn.net/weixin_39079048/article/details/98852947)
 - 编译时就确定了被代理的类是哪一个，那么就可以直接使用静态代理；
 - 运行时才确定被代理的类是哪个，那么可以使用类动态代理;
+- 动态代理两个重要的类：InvocationHandler、Proxy
 
 ##### kotlin
 - var 和 val的区别是val编译成java代码后会带上final修饰，final用来修饰属性、方法、类。被修饰的对象只能进行一次赋值，被修饰的类不能被继承。kotlin默认很多是final修饰的。如果一个类不允许其子类覆盖某个方法，则可以把这个方法声明为final方法。
+1. 优点
+2. 声明数据类型可能既繁琐又乏味，但Kotlin提供了主动类型推断形式的解决方案。
+3. 我们都知道掌握Java及其语法需要多年时间，Kotlin则不是这样的，Kotlin的语法并不像Java那么复杂。
+4. Kotlin允许开发者们在不使用冗余类型的情况下定义函数和静态对象。
+5. 处理Null方面。
+6. data类。
 
 ##### IBinder和AIDL
+[IBINDER](https://blog.csdn.net/qq_30379689/article/details/79451596)
+[IBinder](https://blog.csdn.net/AndroidStudyDay/article/details/93749470)
 1. 每一个进程都有一个虚拟地址空间。每个虚拟地址空间都包含了两块：一个用户空间，一个内核空间。用户空间是不能进行通信的，但内核空间可以。Binder便是通过内核空间进行通信的。
 2. IBinder只需要一次拷贝
 	1. 其他IPC需要 从用户空间copy到内核空间缓存区中，接收方开辟一段内存空间，然后通过系统调用将内核缓存区中的数据copy到接收方的内存缓存区。
@@ -143,7 +166,7 @@
 
 ##### Android 性能优化
 - 布局优化
-	- 减少布局嵌套(constraint布局)、能用简单的布局就用简单的布局，能用LinearLayout就不用RelativeLayout, RelativeLayout相对复杂。
+	- 减少布局嵌套(constraint布局)、能用简单的布局就用简单的布局，能用LinearLayout就不用RelativeLayout, RelativeLayout相对复杂，ConstraintLayout约束布局。FrameLayout帧布局。
 	- ViewStub: ViewStub提供了按需加载的功能，当需要时才会将ViewStub中的布局加载到内存，提高了程序初始化效率.初始化ViewStub时，如果里面View为不可见不会进行初始化。
 - 绘制优化:
 	- 自定义View的onDraw不要做大量的操作，有些可以提前初始化的可以构造函数里初始化，例如不要创建局部对象，onDraw调用会特别频繁。
@@ -209,6 +232,7 @@
 ##### [LeakCanary](https://blog.csdn.net/xiaohanluo/article/details/78196755)
 
 ##### [BlockCanary](https://www.jianshu.com/p/e58992439793)
+> Looper.getMainLooper().setMessageLogging设置监听
 
 ##### [绘制](https://lrh1993.gitbooks.io/android_interview_guide/content/android/basis/decorview.html) [自定义View](https://lrh1993.gitbooks.io/android_interview_guide/content/android/basis/custom_view.html)
 > View绘制从上而下，Activity->PhoneWindow->DecorView->ViewGround->View
@@ -222,7 +246,7 @@
 			- EXACTLY: match_parent、确定大小。
 			- AT_MOST: View的大小不能大于父容器的大小.wrap_content.
 	- 2. 布局: ayout用于确定子View的位置.
-	- 3. 绘制: draw负责绘制自己. 
+	- 3. 绘制: 绘制背景、绘制自己、绘制Children、绘制装饰。 
 		- FontMetircs 高度 top ascent baseline descent bottom 
 		- drawText(text, 200, 100, paint) 左下角 
 		- getFontSpacing两个baseline距离
@@ -295,7 +319,7 @@
 - 内存缓冲: 正在使用中的图片使用弱引用来进行缓存，不在使用中的图片使用LruCache来进行缓存的功能。
 - 当内存不足的时候，Activity、Fragment会调用onLowMemory方法，可以在这个方法里去清除缓存，Glide使用的就是这一种方式来防止OOM。
 - 两个缓存都是LruCache。不使用原生的，使用的是LinkedHashMap实现的。
-- RGB_565每像素大小4. ARGB_8888每像素2。
+- RGB_565每像素大小16位2字节. ARGB_8888每像素32位4字节。
 -  Glide内存开销是Picasso的一半，就是因为默认Bitmap格式不同。
 -  8.0 Bitmap存储在native里不会出现OOM。
 -  文中开头列出 Fresco 的优点是：“在5.0以下(最低2.3)系统，Fresco将图片放到一个特别的内存区域(Ashmem区)” 这个Ashmem区是一块匿名共享内存，Fresco 将Bitmap像素放到共享内存去了，共享内存是属于native堆内存。Fresco 使用匿名共享内存来保存Bitmap数据。

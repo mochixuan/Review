@@ -31,6 +31,8 @@
 - concat: 该方法不会改变现有的数组，而仅仅会返回被连接数组的一个副本。
 
 ##### new一个对象步骤
+> 继承属性和原型链属性
+
 - 1. 创建一个新的空对象 
 - 2. 设置新对象的contructor属性为构造函数的名称，设置新对象的__proto__属性指向构造函数的prototype对象。
 - 3. 使用新对象调用函数，使函数中的this指向新对象。
@@ -56,6 +58,7 @@ Person.call(obj) // {}.构造函数()
 - 第一种是使用 instanceof 操作符, 只要用这个操作符来测试实例(instance)与原型链中出现过的构造函数,结果就会返回true. 以下几行代码就说明了这点.
 
 ##### instanceof和typeof的区别
+1. instanceof: 右边的数据是不是在左边数据的原型链上。
 
 ##### 原型和原型链
 [链接1](https://blog.csdn.net/yucihent/article/details/79424506)

@@ -181,7 +181,8 @@ class Provider extends Component {
 - processModuleFilte
 - AppRegistry.registerComponent(appName,() => component,)
 
-##### setState后发生了什么？
+##### [setState后发生了什么？](https://blog.csdn.net/u012031958/article/details/105380499/)
+[事物](https://blog.csdn.net/handsomexiaominge/article/details/86183735)
 - this.state.key = 1是可以的，只是不会更新render.
 - 如果将this.state赋值给一个新的对象引用，那么其他不在对象上的state将不会被放入状态队列中，当下次调用setState()并对状态队列进行合并时，直接造成了state丢失。
 - .直接传递对象的setstate会被合并成一次 ，使用函数传递state不会被合并, 不会设置批处理状态isBatchingUpdates=false,直接进行更新。
@@ -207,9 +208,12 @@ void setState(
 - [全](https://github.com/wuyawei/fe-code/blob/master/react/%E6%B7%B1%E5%85%A5%20React%20hooks%20%20%E2%80%94%20%20useState.md)
 - useState: 
 - useEffects:(异步执行) componentDidMount、componentDidUpdate 的组合体。放回清理函数可选，在卸载时调用。有两个参数，第一个参数可以返回一个函数，第二个参数是一个数组，但数组里的值发生改变时，第一个函数的返回函数回被调用，当为空时，每次都会调用，当为[]是则componentWillUnmount才会调用。
--  useLayoutEffect里面的callback函数会在DOM更新完成后立即执行,但是会在浏览器进行任何绘制之前运行完成,阻塞了浏览器的绘制。
+-  [useLayoutEffect](https://www.cnblogs.com/sunidol/p/11301785.html)里面的callback函数会在DOM更新完成后立即执行,但是会在浏览器进行任何绘制之前运行完成,阻塞了浏览器的绘制。
 - useContext
 - useReducer
+- useRef
+- useCallBack
+- useMemo
 
 ##### 高价组件、Hook、继承
 - 如果一个函数 接受一个或多个函数作为参数或者返回一个函数 就可称之为 高阶函数。
@@ -235,11 +239,12 @@ void setState(
 		- 那些界面需要显示，更具不同权限显示
 		- 组件渲染性能追踪
 
-###### Hook 1. [hook原理](https://segmentfault.com/a/1190000019966124) 2. [hook 优点](https://zhuanlan.zhihu.com/p/50953073) 3.[hook 原理](https://zhuanlan.zhihu.com/p/51356920) 4. [hook原理细节](https://zhuanlan.zhihu.com/p/88593858)
+###### Hook 1. [hook原理](https://segmentfault.com/a/1190000019966124) 2. [hook 优点](https://zhuanlan.zhihu.com/p/50953073) 3.[hook 原理](https://zhuanlan.zhihu.com/p/51356920) 4. [hook原理细节](https://zhuanlan.zhihu.com/p/88593858) 5.[源码](https://www.jianshu.com/p/fc31704ad0ee?from=timeline) 6. [源码](https://mp.weixin.qq.com/s/Err3W38ZMAX9Bm__SAI1jg)
 > React Hooks通过一个数组和下标实现的，每次调用的时候从数组里读取state,setState函数，且数组游标向下移动，渲染的时候会将下标重制为0.
 
 - 不要在循环，条件判断，函数嵌套中使用hooks
 - 只能在函数组件中使用hooks
+- 其中hooks队列中第一个节点的引用将存储在渲染完成的fiber对象的memoizedState属性中，这意味着hooks队列及其状态可以在外部被定位到：
 
 继承和其他的缺点：
 
@@ -265,6 +270,8 @@ void setState(
 
 - staging、production
 - mandatory: 强制更新。
+
+1. code-push在首次热更的时候会全量下载为后面的资源增量热更做准备。这里注意的是它只是资源文件进行增量，bundle文件并不会，现今bundle文件越来越大的时候bundle文件增量也是一个不错的优化空间。
 
 ##### 虚拟DOM,Diff。
 >虚拟DOM是在render里面调用的。[过程](https://mp.weixin.qq.com/s?__biz=MzIzNzA0NzE5Mg==&mid=2247488043&amp;idx=1&amp;sn=33769353115fb505e2573337131d39f0&source=41#wechat_redirect)，调用了render不一定绘制。有时候props和state没有改变也会调用render。
@@ -392,6 +399,7 @@ Sagas属于一个错误管理模式，也同时用于控制复杂事务的执行
 
 ##### [小程序](https://www.zhihu.com/search?type=content&q=%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%8E%9F%E7%90%86)
 ##### [小程序](https://zhuanlan.zhihu.com/p/81775922)
+##### [微信小程序原理](https://blog.csdn.net/xiangzhihong8/article/details/66521459)
 
 ##### React-Native通信、React-Native对比Flutter
 - React-Native和Flutter实现原理不同，RN是通过JSCore解析Bundle，最后通过原生组件堆叠出来的。Flutter中组件是通过自己实现了一套，Flutter实现Surface和Canvas，通过Skia进行绘制。
@@ -476,6 +484,7 @@ receiveCommand
 - 更新时能够暂停，终止，复用渲染任务.
 - 给不同类型的更新赋予优先级.
 - 并发方面新的基础能力.
+- React 在 Reconciliation 过程中会构建一颗新的树(官方称为workInProgress tree，WIP树)，可以认为是一颗表示当前工作进度的树。还有一颗表示已渲染界面的旧树，React就是一边和旧树比对，一边构建WIP树的。 alternate 指向旧树的同等节点。
 
 **重点**
 
@@ -485,5 +494,7 @@ receiveCommand
 4. Fiber结构：
 5. 渲染有两个阶段：Reconciliation(协调阶段) 和 Commit(提交阶段).
 6. 结构：
+
+##### [Proxy](https://www.jianshu.com/p/77eaaf34e732)
 
 ##### 项目难点
