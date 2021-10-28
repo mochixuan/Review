@@ -46,12 +46,4 @@ function shallowEqual(objA, objB) {
     return true;
 }
 
-let a = {
-
-}
-
-a.a = a;
-
-function deepEqual(objA,objB) {
-
-}
+shallowEqual([1,2,3], [1,2,3])

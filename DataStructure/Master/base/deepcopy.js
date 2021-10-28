@@ -4,7 +4,13 @@
  * 其他类型的数据只是简单function、null。直接赋值
  */
 
-// JSON.stringify,JSON.parse: 里面 new Date: 被立刻执行,RegExp，Function会为 空对象{}
+// JSON.stringify,JSON.parse: 
+/**
+ * 里面 new Date: 先获取时间挫调用相应方法判断
+ * RegExp， test
+ * Function会为 空对象 {} call
+ *  
+ * */
 
 // https://yq.aliyun.com/articles/610052?utm_content=m_1000006154
 

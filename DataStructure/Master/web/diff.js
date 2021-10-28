@@ -9,7 +9,7 @@ function diff(oldDom,newVDom) {
     let resultDom = oldDom;
 
     if (newVDom == null) newVDom = '';
-
+ 
     if (typeof newVDom === 'string' || typeof newVDom === 'boolean') newVDom = String(newVDom);
 
     /**

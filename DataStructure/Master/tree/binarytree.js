@@ -220,7 +220,22 @@ function preSortBinary(root,result) {
     return result;
 }
 
+function preOrderBinary1(root) {
+    const result = [];
+    const cItems = [];
+    while(root != null || cItems.length !== 0) {
+        while(root != null) {
+            cItems.push(root.right);
+            result.push(root.value);
+            root = root.left;
+        }
+        root = cItems.pop();
+    }
+    return result;
+}
+
 console.warn('非递归序',preSortBinary(qzhBinaryA,[]))
+console.warn('非递归序终须', preOrderBinary1(qzhBinaryA))
 
 function inSortBinary(root,result) {
     let stack = [];
@@ -234,9 +249,36 @@ function inSortBinary(root,result) {
         result.push(tempRoot.value);
         tempRoot = tempRoot.right;
     }
+} 
+
+/**
+ * 
+ * @param {Node} root 根节点
+ * @filed cItems 临时节点缓存
+ * @return {Array} result 结果、数组
+ */
+function inSortBinary(root) {
+    const result = [];
+    const cItems = [];
+    while (cItems.length !== 0 || root !== null) {
+        while(root != null) {
+            cItems.push(root);
+            root = root.left;
+        }
+        root = cItems.pop();
+        result.push(root.value);
+        root = root.right;
+    }
+    return result;
 }
 
 console.warn('后递归序',inSortBinary(qzhBinaryA,[]))
+
+// 深度
+function maxDepth(root) {
+    if (root === null) return 0;
+    return Math.max(maxDepth(root.left), maxDepth(root.right)) + 1;
+}
 
 // 链表倒叙
 

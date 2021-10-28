@@ -68,24 +68,23 @@ function throttle(fn, wait) {
     function throttled() {
         const thisArg = this;
         const args = [...arguments];
-        if (timeout != null) {
-            clearTimeout(timeout);
-            timeout = null;
-        }
+        if (timeout) clearTimeout(timeout);
+        
         const current = new Date().getTime();
         if ((current - last)/1000 >= wait) {
             last = new Date().getTime();
-            fn(args);
+            fn.apply(thisArg, args);
+        } else {
+            timeout = setTimeout(() => {
+                last = new Date().getTime();
+                fn.apply(thisArg, args);
+            }, wait)
         }
-        timeout = setTimeout(()=>{
-            last = new Date().getTime();
-            fn(args);
-        }, wait)
+        
     }
     throttled.cancel = () => {
         last = 0;
         clearTimeout(timeout);
-        timeout = null;
     }
 
     return throttled;

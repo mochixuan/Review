@@ -1,0 +1,30 @@
+Function.prototype.bind2 = function(thisAge) {
+    const oneArgs = Array.prototype.slice.apply(arguments, 1);
+    const _self = this;
+    const TempFC = function(){}
+    const bound = function(...twoArgs) {
+        return _self.apply(this instanceof TempFC ? _self : thisAge, oneArgs.concat(twoArgs));
+    }
+    // 解决new 问题
+    TempFC.prototype = _self.__proto__;
+    bound.prototype = new TempFC()
+    return bound;
+}
+
+const TempFC = function(){}
+TempFC.prototype = this.__proto__;
+a.prototype = new TempFC();
+
+Function.prototype.call = function() {
+    const symbol = Symbol('call');
+    const [thisArg, args] = [...arguments];
+    thisAge[symbol] = this;
+    let result;
+    if (args != null) {
+        result = thisAge[symbol](...args);
+    } else {
+        result = thisAge[symbol]();
+    }
+    delete thisAge[symbol];
+    return result;
+}

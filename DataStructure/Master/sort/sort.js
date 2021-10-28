@@ -54,12 +54,15 @@ console.log('select sort: ',selectSort(generateTestData()))
  * 性能要好于冒泡和选择排序,数据移动时赋值更少。
  */
 function insertSort(items) {
+    if (items.length <= 1) return items
     for (let i = 1 ; i < items.length ; i++) {
         let temp = items[i];
+        let isExChange = false
         for (let j = i - 1 ; j >= 0 && temp < items[j]; j--) {
             items[j+1] = items[j];
+            isExChange = true
         }
-        items[j] = temp;
+        if (isExChange) items[j] = temp;
     }
     return items;
 }
@@ -129,8 +132,16 @@ function mergeSort(arr) {
 
 console.warn("快速排序: ", mergeSort([13, 14, 15, 17, 20, 23, 28, 42]));
 
-// 深度
-function maxDepth(root) {
-    if (root === null) return 0;
-    return Math.max( maxDepth(root.left), maxDepth(root.right)) + 1;
+
+function maxTotal(arr) {
+    if (arr.length === 0) return null;
+    let max = arr[0];
+    let curMax = arr[0];
+    for (let i = 1 ; i < arr.length ; i++) {
+        if (curMax < arr[i]) {
+            curMax = arr[i];
+            max = curMax;
+        }
+    }
+    return max;
 }

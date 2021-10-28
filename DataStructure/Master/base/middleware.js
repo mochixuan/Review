@@ -1,4 +1,4 @@
-// 中间价编写
+// 中间价编写 good
 const defineWare = ({getState,dispatch}) => (next) => (action) => {
     return next(action);
 }
@@ -11,7 +11,7 @@ applymiddleware = (middleWares) => {
         getState: store.getState, 
         dispatch: store.dispatch,
     }
-    middleWares = middleWares.map((item) => item(middleWares));
+    middleWares = middleWares.map((item) => item(middlewareAPI));
     dispatch = compose(...middleWares)(store.dispatch)
 
     dispatch(action);

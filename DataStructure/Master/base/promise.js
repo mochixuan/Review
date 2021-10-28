@@ -64,7 +64,7 @@ class Promise1 {
 
     resolvePromise = (promise,result,resolved,rejected) => {
         if (promise === result) return rejected(new TypeError(''))
-
+        // result != null && ((result === 'object' && result.__proto__.constructor === Promise2) || typeof result === 'function') 
         if (result != null && (typeof result === 'object' || typeof result === 'function')) {
             let nextThen = result.then;
             if (nextThen != null && typeof nextThen === 'function') {
@@ -80,8 +80,6 @@ class Promise1 {
             resolved(result);
         }
     }
-
-
 }
 
 /**
@@ -130,64 +128,70 @@ class Promise1 {
    }
 
    thenRejected(promise22, reject, onSuccessResolve, onErrorReject) {
-     try {
+     
        setTimeout(() => {
-         // 直接执行
-         const result = reject(this.reason);
-         this.resolvePromise(
-           promise22,
-           result,
-           onSuccessResolve,
-           onErrorReject
-         );
+         try {
+          // 直接执行
+          const result = reject(this.reason);
+          this.resolvePromise(
+            promise22,
+            result,
+            onSuccessResolve,
+            onErrorReject
+          );
+         } catch (error) {
+           onErrorReject(error);
+         }
        }, 0);
-     } catch (error) {
-       reject(error);
-     }
+     
    }
 
-   thenResolved(promise22, resolve, reject, onSuccessResolve, onErrorReject) {
-     try {
-       setTimeout(() => {
-         // 直接执行
-         const result = resolve(this.value);
-         this.resolvePromise(
-           promise22,
-           result,
-           onSuccessResolve,
-           onErrorReject
-         );
-       }, 0);
-     } catch (error) {
-       reject(error);
-     }
+   thenResolved (promise22, resolve, onSuccessResolve, onErrorReject)  {
+      setTimeout(() => {
+        try {
+          // 直接执行
+          const result = resolve(this.value);
+          this.resolvePromise(
+            promise22,
+            result,
+            onSuccessResolve,
+            onErrorReject
+          );
+        } catch (error) {
+          onErrorReject(error);
+        }
+      }, 0);
    }
 
    then(resolve, reject) {
-     const promise22 = new Promise2((onSuccessResolve, onErrorReject) => {
-       if (this.status === 'rejected') {
-         this.thenRejected(promise22, reject, onSuccessResolve, onErrorReject);
-       } else if (this.status === 'fulfilled') {
-         this.thenResolved(
-           promise22,
+     let _self = this;
+     const promise22 = new Promise2((onSuccessResolve, onErrorReject)=>{
+      if (_self.status === 'rejected') {
+         _self.thenRejected(
+           this, // promise2
+           reject, 
+           onSuccessResolve, 
+           onErrorReject
+          );
+       } else if (_self.status === 'fulfilled') {
+         _self.thenResolved(
+           this,
            resolve,
-           reject,
            onSuccessResolve,
            onErrorReject
          );
-       } else if (this.status === 'pendding') {
-         this.onResolveCallBack.push(() => {
-           this.thenResolved(
-             promise22,
+       } else if (_self.status === 'pendding') {
+         _self.onResolveCallBack.push(() => {
+           _self.thenResolved(
+             this,
              resolve,
-             reject,
              onSuccessResolve,
              onErrorReject
            );
          });
-         this.onRejectCallBack.push(() => {
-           this.thenRejected(
-             promise22,
+         _self.onRejectedCallBack.push(() => {
+           _self.thenRejected(
+             this,
              reject,
              onSuccessResolve,
              onErrorReject
@@ -204,30 +208,34 @@ class Promise1 {
 
    resolvePromise(promise2, result, resolve, reject) {
      if (promise2 === result) {
-        return reject(new Error('不能返回自己，会找出无限循环引用'))
+        return reject(new Error('不能返回自己，会造成无限循环引用'))
      }
-     if (result != null && typeof result === 'function') {
-        try {
-            const nextThen = result.then;
-            if (nextThen != null && typeof nextThen === 'function') {
-                nextThen.call(result, (newResult) => {
-                    this.resolvePromise(promise2, newResult, resolve, reject);
-                }, (error) => {
-                    reject(error);
-                });
-            } else {
-                resolve(result);
-            }
-        } catch (error) {
-            reject(error);
-        }
-     } else {
-         resolve(result);
+     try {
+      if (result != null && typeof result === 'object' && result instanceof Promise2) {
+          // const nextThen = result.then;
+          // if (nextThen != null && typeof nextThen === 'object') {
+          //     nextThen.call(result, (newResult) => {
+          //         this.resolvePromise(promise2, newResult, resolve, reject);
+          //     }, (error) => {
+          //         reject(error);
+          //     });
+          // } else {
+          //     resolve(result);
+          // }
+          result.then(resolve, reject);
+      } else if (result != null && typeof result === 'function') {
+        this.resolvePromise(promise2, result(), resolve, reject); // 函数处理
+      } else {
+        resolve(result);
+      }
+     } catch (error) {
+       reject(error);
      }
    }
 
  }
 
+ // promise.出的东西是重新new 出来的，你看都是Promise出的
  Promise2.resolve = function(val){
     return new Promise2((resolve, reject) => {
         resolve(val);
@@ -236,7 +244,7 @@ class Promise1 {
 
 Promise2.reject = function(val) {
     return new Promise2((resolve, reject) => {
-        resolve(val);
+        reject(val);
     });
 }
 
@@ -247,7 +255,7 @@ Promise2.all = function(promises) {
         let arr = []
         for (let i = 0; i < promises.length; i++) {
             let index = i;
-            Promise2.resolve(promises)
+            Promise2.resolve(promises[i])
               .then((result)=>{
                 count++;
                 arr[index] = result;
@@ -269,6 +277,8 @@ Promise2.race = function(promises) {
       }).catch((error)=>{
         reject(error)
       })
+      // 更简单的
+      // item.then(resolve, reject);
     })
   })
 }
@@ -292,3 +302,62 @@ Promise2.race = function(promises) {
         }
     })
 }
+
+new Promise((resolve,reject)=>{
+  resolve('哈哈')
+}).then((result)=>{
+  console.log('result', result)
+  throw new Error('你错了')
+} ,(error) => {
+  console.log('error', error)
+}).then((result) => {
+  console.log('result1', result)
+}, (error) => {
+  console.log('error1', error)
+}).then((result) => {
+  console.log('result2', result)
+  return Promise.resolve().then(()=> 12345)
+}, (error) => {
+  console.log('error2', error)
+}).then((result) => {
+  console.log('result3', result)
+}, (error) => {
+  console.log('error3', error)
+})
+
+setTimeout(()=>{
+  console.warn("===============")
+  new Promise2((resolve, reject) => {
+    resolve('哈哈')
+  }).then((result) => {
+    console.log('result', result)
+    throw new Error('你错了')
+  }, (error) => {
+    console.log('error', error)
+  }).then((result) => {
+    console.log('result1', result)
+  }, (error) => {
+    console.log('error1', error)
+  }).then((result) => {
+    console.log('result2', result)
+    return Promise2.resolve().then(() => 12345)
+  }, (error) => {
+    console.log('error2', error)
+  }).then((result) => {
+    console.log('result3', result)
+  }, (error) => {
+    console.log('error3', error)
+  })
+})
+
+new Promise1((resolve, reject)=>{
+  resolve(21)
+}).then(()=>{
+  console.log('====123')
+  return new Promise1((resolve, reject) => {
+    resolve(34)
+  })
+}).then(() => {
+  console.log('====123')
+  return function () {}
+})

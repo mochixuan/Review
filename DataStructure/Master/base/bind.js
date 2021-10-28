@@ -6,11 +6,18 @@ Function.prototype.bind1 = function bind(thisArg) {
     function bound() {
         const arg2 = Array.prototype.slice.call(arguments);
         const arg = arg1.concat(arg2);
+        
+        console.log('------------1-----------')
+        console.warn (this instanceof EmptyFC);
+        console.warn(this)
+        console.warn(_self)
+        console.log('------------2-----------')
+        // new出的对象 this.__proto__.__proto__ = EmptyFC.prototype = _self.prototype
         return _self.apply(this instanceof EmptyFC ? this : thisArg, arg)
     }
     // new 之后原来_self的原型链东西必须保存
     EmptyFC.prototype = _self.prototype;
-    bound.prototype = new EmptyFC();
+    bound.prototype = new EmptyFC(); 
     return bound;
 }
 
@@ -87,3 +94,17 @@ console.warn(personFC.apply1(person2,[1,2]))
 console.warn(personFC.apply1())
 
 
+Function.prototype.bind1 = function(thisArg) {
+    const oneArgs = Array.prototype.silice.call(arguments, 1);
+    var _self = this;
+    function EmptyFC(){}
+    var bound = function() {
+        const twoArgs = Array.prototype.silice.call(arguments);
+        return _self.apply(this instanceof EmptyFC ? _self : thisArg, oneArgs.concat(twoArgs));
+    }
+    EmptyFC.prototype = this.prototype;
+    bound.prototype = new EmptyFC();
+    bound.prototype = Object.create(this.prototype);
+
+    return bound;
+}
